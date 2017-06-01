@@ -1,0 +1,96 @@
+allprojects {
+  repositories {
+    jcenter()
+  }
+}
+
+ext {
+  // Android
+  androidBuildToolsVersion = "25.0.3"
+  androidMinSdkVersion = 19
+  androidTargetSdkVersion = 25
+  androidCompileSdkVersion = 25
+
+  // Testing
+  junitVersion = "4.12"
+  espressoVersion = "2.2.2"
+
+  // Library versions
+  supportLibVersion = "25.3.1"
+  rxAndroidVersion = "2.0.1"
+  rxJavaVersion = "2.1.0"
+  daggerVersion = "2.10"
+  retrofitVersion = "2.3.0"
+  okhttpVersion = "3.8.0"
+  gsonVersion = "2.8.1"
+  butterKnifeVersion = "8.6.0"
+  autoValueVersion = "1.4"
+  autoValueGsonVersion = "0.4.6"
+  storioVersion = "1.13.0"
+  timberVersion = "4.5.1"
+  glideVersion = "3.7.0"
+  stethoVersion = "1.5.0"
+  leakCanaryVersion = "1.5.1"
+  materialValuesVersion = "1.1.1"
+
+  // Testing
+  junitDependency = "junit:junit:${junitVersion}"
+  espressoDependency = "com.android.support.test.espresso:espresso-core:${espressoVersion}"
+
+  espressoExcludeGroups = [
+      group1 : "com.android.support", module1: "support-annotations"
+  ]
+
+  // Libraries
+  supportDependencies = [
+      appCompat   : "com.android.support:appcompat-v7:${supportLibVersion}",
+      cardView    : "com.android.support:cardview-v7:${supportLibVersion}",
+      design      : "com.android.support:design:${supportLibVersion}",
+      recyclerView: "com.android.support:recyclerview-v7:${supportLibVersion}",
+  ]
+
+  rxDependencies = [
+      rxAndroid: "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+      rxJava   : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+  ]
+
+  daggerDependencies = [
+      dagger   : "com.google.dagger:dagger:${daggerVersion}",
+      daggerApt: "com.google.dagger:dagger-compiler:${daggerVersion}",
+  ]
+
+  retrofitDependencies = [
+      retrofit     : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+      rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+      gsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+  ]
+
+  butterKnifeDependencies = [
+      butterknife   : "com.jakewharton:butterknife:${butterKnifeVersion}",
+      butterknifeApt: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+  ]
+
+  autoValueDependencies = [
+      autoValueApt     : "com.google.auto.value:auto-value:${autoValueVersion}",
+      autoValueProvided: "com.jakewharton.auto.value:auto-value-annotations:${autoValueVersion}",
+      gsonApt          : "com.ryanharter.auto.value:auto-value-gson:${autoValueGsonVersion}",
+      gsonProvided     : "com.ryanharter.auto.value:auto-value-gson:${autoValueGsonVersion}",
+  ]
+
+  storioDependencies = [
+      sqlLite        : "com.pushtorefresh.storio:sqlite:${storioVersion}",
+      contentResolver: "com.pushtorefresh.storio:content-resolver:${storioVersion}",
+  ]
+
+  stethoDependencies = [
+      stetho       : "com.facebook.stetho:stetho:${stethoVersion}",
+      networkHelper: "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
+  ]
+
+  okhttpDependency = "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+  gsonDependency = "com.google.code.gson:gson:${gsonVersion}"
+  timberDependency = "com.jakewharton.timber:timber:${timberVersion}"
+  glideDependency = "com.github.bumptech.glide:glide:${glideVersion}"
+  leakCanaryDependency = "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
+  materialValuesDependency = "blue.aodev:material-values:${materialValuesVersion}"
+}

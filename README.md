@@ -1,5 +1,20 @@
 Backing App created as a part of Udacity [Android Developer Nanodegree Program](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801).
 
+## Used Libraries
+* [RxJava 2](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [Dagger 2](https://github.com/google/dagger)
+* [Retrofit 2](https://github.com/square/retrofit) with [RxJava adapter](https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2) and [Gson converter](https://github.com/square/retrofit/tree/master/retrofit-converters/gson)
+* [OkHttp](https://github.com/square/okhttp)
+* [Retrolambda](https://github.com/evant/gradle-retrolambda)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
+* [Gson](https://github.com/google/gson)
+* [AutoValue](https://github.com/google/auto) with [Gson extension](https://github.com/rharter/auto-value-gson)
+* [StorIO](https://github.com/pushtorefresh/storio)
+* [Glide](https://github.com/bumptech/glide)
+* [Stetho](https://github.com/facebook/stetho)
+* [LeakCanary](https://github.com/square/leakcanary)
+* [Timber](https://github.com/JakeWharton/timber)
+
 ## Project Overview
 You will productionize an app, taking it from a functional state to a production-ready state. This will involve finding and handling error cases, adding accessibility features, allowing for localization, adding a widget, and adding a library.
 

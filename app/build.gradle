@@ -1,29 +1,110 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.3.2'
+    classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+  }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.3"
+  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+  buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
   defaultConfig {
     applicationId "com.sedsoftware.bakingapp"
-    minSdkVersion 19
-    targetSdkVersion 25
+    minSdkVersion rootProject.ext.androidMinSdkVersion
+    targetSdkVersion rootProject.ext.androidTargetSdkVersion
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
+
+  compileOptions {
+    targetCompatibility 1.8
+    sourceCompatibility 1.8
   }
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
+
+  // Testing
+  def junit = rootProject.ext.junitDependency
+  def espresso = rootProject.ext.espressoDependency
+  def espressoExclude = rootProject.ext.espressoExcludeGroups
+
+  // Lib definitions
+  def supportLib = rootProject.ext.supportDependencies
+  def rx = rootProject.ext.rxDependencies
+  def dagger = rootProject.ext.daggerDependencies
+  def retrofit = rootProject.ext.retrofitDependencies
+  def okhttp = rootProject.ext.okhttpDependency
+  def gson = rootProject.ext.gsonDependency
+  def butterKnife = rootProject.ext.butterKnifeDependencies
+  def autoValue = rootProject.ext.autoValueDependencies
+  def storio = rootProject.ext.storioDependencies
+  def timber = rootProject.ext.timberDependency
+  def glide = rootProject.ext.glideDependency
+  def stetho = rootProject.ext.stethoDependencies
+  def materialValues = rootProject.ext.materialValuesDependency
+  def leakCanary = rootProject.ext.leakCanaryDependency
+
+  // Testing
+  testCompile junit
+
+  androidTestCompile(espresso, {
+    exclude group: espressoExclude.group1, module: espressoExclude.module1
   })
-  compile 'com.android.support:appcompat-v7:25.3.1'
-  testCompile 'junit:junit:4.12'
+
+  // Support Libraries
+  compile supportLib.appCompat
+  compile supportLib.cardView
+  compile supportLib.design
+  compile supportLib.recyclerView
+
+  // Rx
+  compile rx.rxAndroid
+  compile rx.rxJava
+
+  // Dagger
+  compile dagger.dagger
+  annotationProcessor dagger.daggerApt
+
+  // Retrofit
+  compile retrofit.retrofit
+  compile retrofit.rxJavaAdapter
+  compile retrofit.gsonConverter
+
+  // ButterKnife
+  compile butterKnife.butterknife
+  annotationProcessor butterKnife.butterknifeApt
+
+  // AutoValue
+  annotationProcessor autoValue.autoValueApt
+  provided autoValue.autoValueProvided
+  annotationProcessor autoValue.gsonApt
+  provided autoValue.gsonProvided
+
+  //StorIO
+  compile storio.sqlLite
+  compile storio.contentResolver
+
+  // Stetho
+  compile stetho.stetho
+  compile stetho.networkHelper
+
+  // LeakCanary
+  debugCompile leakCanary
+  releaseCompile leakCanary
+  testCompile leakCanary
+
+  compile okhttp
+  compile gson
+  compile timber
+  compile glide
+  compile materialValues
 }
