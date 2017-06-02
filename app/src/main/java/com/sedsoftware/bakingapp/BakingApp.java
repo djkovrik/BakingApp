@@ -2,10 +2,14 @@ package com.sedsoftware.bakingapp;
 
 import android.app.Application;
 import com.facebook.stetho.Stetho;
+import com.sedsoftware.bakingapp.data.source.DaggerRecipeRepositoryComponent;
+import com.sedsoftware.bakingapp.data.source.RecipeRepositoryComponent;
 import com.squareup.leakcanary.LeakCanary;
 import timber.log.Timber;
 
 public class BakingApp extends Application {
+
+  private RecipeRepositoryComponent recipeRepositoryComponent;
 
   @Override
   public void onCreate() {
@@ -13,7 +17,7 @@ public class BakingApp extends Application {
 
     if (LeakCanary.isInAnalyzerProcess(this)) {
       // This process is dedicated to LeakCanary for heap analysis.
-      // You should not init your app in this process.
+      // We should not init our app in this process.
       return;
     }
     LeakCanary.install(this);
@@ -25,5 +29,13 @@ public class BakingApp extends Application {
 
       Stetho.initializeWithDefaults(this);
     }
+
+    recipeRepositoryComponent = DaggerRecipeRepositoryComponent.builder()
+        .bakingAppModule(new BakingAppModule(getApplicationContext()))
+        .build();
+  }
+
+  public RecipeRepositoryComponent getRecipeRepositoryComponent() {
+    return recipeRepositoryComponent;
   }
 }
