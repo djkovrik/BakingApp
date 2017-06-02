@@ -1,4 +1,4 @@
-package com.sedsoftware.bakingapp.data.remote;
+package com.sedsoftware.bakingapp.data.source.remote;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;

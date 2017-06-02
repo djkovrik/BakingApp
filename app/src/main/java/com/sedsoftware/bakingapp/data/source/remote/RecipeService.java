@@ -1,4 +1,4 @@
-package com.sedsoftware.bakingapp.data.remote;
+package com.sedsoftware.bakingapp.data.source.remote;
 
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import io.reactivex.Observable;
