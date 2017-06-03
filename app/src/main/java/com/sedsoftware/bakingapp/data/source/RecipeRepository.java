@@ -1,6 +1,5 @@
 package com.sedsoftware.bakingapp.data.source;
 
-import android.support.annotation.NonNull;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import com.sedsoftware.bakingapp.data.source.local.Local;
 import com.sedsoftware.bakingapp.data.source.remote.Remote;
@@ -38,7 +37,7 @@ public class RecipeRepository implements RecipeDataSource {
   }
 
   @Override
-  public void saveRecipe(@NonNull Recipe recipe) {
+  public void deleteAllRecipes() {
 
   }
 }

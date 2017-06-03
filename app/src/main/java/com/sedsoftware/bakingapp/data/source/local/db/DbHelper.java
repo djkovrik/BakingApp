@@ -3,6 +3,9 @@ package com.sedsoftware.bakingapp.data.source.local.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.sedsoftware.bakingapp.data.source.local.db.IngredientPersistenceContract.IngredientEntry;
+import com.sedsoftware.bakingapp.data.source.local.db.RecipePersistenceContract.RecipeEntry;
+import com.sedsoftware.bakingapp.data.source.local.db.StepPersistenceContract.StepEntry;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -15,17 +18,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
   @Override
   public void onCreate(SQLiteDatabase db) {
-    db.execSQL(StepPersistenceContract.SQL_QUERY_CREATE);
     db.execSQL(IngredientPersistenceContract.SQL_QUERY_CREATE);
+    db.execSQL(StepPersistenceContract.SQL_QUERY_CREATE);
     db.execSQL(RecipePersistenceContract.SQL_QUERY_CREATE);
   }
 
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-    db.execSQL("DROP TABLE IF EXISTS " + RecipePersistenceContract.RecipeEntry.TABLE_NAME);
-    db.execSQL("DROP TABLE IF EXISTS " + IngredientPersistenceContract.IngredientEntry.TABLE_NAME);
-    db.execSQL("DROP TABLE IF EXISTS " + StepPersistenceContract.StepEntry.TABLE_NAME);
+    db.execSQL("DROP TABLE IF EXISTS " + RecipeEntry.TABLE_NAME);
+    db.execSQL("DROP TABLE IF EXISTS " + StepEntry.TABLE_NAME);
+    db.execSQL("DROP TABLE IF EXISTS " + IngredientEntry.TABLE_NAME);
     onCreate(db);
   }
 }

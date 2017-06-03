@@ -17,8 +17,8 @@ public class DbUtils {
     return "SELECT * FROM " + tableName;
   }
 
-  public static String getSelectByIdQuery(String tableName, String clause) {
-    return "SELECT * FROM " + tableName + " WHERE " + clause;
+  public static String getSelectByIdQuery(String tableName, String column) {
+    return "SELECT * FROM " + tableName + " WHERE " + column + " = ?";
   }
 
   public static ContentValues ingredientToContentValues(Ingredient ingredient, int recipeId) {
@@ -56,69 +56,77 @@ public class DbUtils {
     return cv;
   }
 
-  public static Ingredient ingredientFromCursor(Cursor cursor) {
-    float quantity = cursor.getFloat(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_QUANTITY));
-    String measure = cursor.getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_MEASURE));
-    String ingredient = cursor
-        .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_INGREDIENT));
+  public static List<Ingredient> ingredientsFromCursor(Cursor cursor) {
 
-    cursor.close();
+    List<Ingredient> ingredientsList = new ArrayList<>();
 
-    return Ingredient.builder()
-        .quantity(quantity)
-        .measure(measure)
-        .ingredient(ingredient)
-        .build();
+    cursor.moveToFirst();
+
+    while (cursor.moveToNext()) {
+
+      float quantity = cursor
+          .getFloat(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_QUANTITY));
+
+      String measure = cursor
+          .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_MEASURE));
+
+      String ingredient = cursor
+          .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_INGREDIENT));
+
+      Ingredient result = Ingredient.builder()
+          .quantity(quantity)
+          .measure(measure)
+          .ingredient(ingredient)
+          .build();
+
+      ingredientsList.add(result);
+    }
+
+    return ingredientsList;
   }
 
-  public static Step stepFromCursor(Cursor cursor) {
-    int stepId = cursor.getInt(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_STEP_ID));
-    String shortDesc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_SHORT_DESC));
-    String desc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_DESC));
-    String video = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_VIDEO_URL));
-    String thumb = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_THUMB_URL));
+  public static List<Step> stepsFromCursor(Cursor cursor) {
 
-    cursor.close();
+    List<Step> stepsList = new ArrayList<>();
 
-    return Step.builder()
-        .id(stepId)
-        .shortDescription(shortDesc)
-        .description(desc)
-        .videoURL(video)
-        .thumbnailURL(thumb)
-        .build();
+    cursor.moveToFirst();
+
+    while (cursor.moveToNext()) {
+
+      int stepId = cursor.getInt(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_STEP_ID));
+      String sdesc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_SHORT_DESC));
+      String desc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_DESC));
+      String video = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_VIDEO_URL));
+      String thumb = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_THUMB_URL));
+
+      Step step = Step.builder()
+          .id(stepId)
+          .shortDescription(sdesc)
+          .description(desc)
+          .videoURL(video)
+          .thumbnailURL(thumb)
+          .build();
+
+      stepsList.add(step);
+    }
+
+    return stepsList;
   }
 
-  // TODO(1) CHECK HOW THIS WORKS
-  public static Recipe recipeFromCursors(Cursor recipe, Cursor ingredients, Cursor steps) {
+  // TODO(1) OPTIMIZE THIS
+
+  public static Recipe recipeFromCursor(Cursor recipe, List<Ingredient> ingredients, List<Step> steps) {
+
     int id = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
     String name = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
     int servings = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_SERVINGS));
     String image = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_IMAGE));
 
-    recipe.close();
-
-    List<Ingredient> ingredientList = new ArrayList<>();
-
-    while (ingredients.moveToNext()) {
-      ingredientList.add(ingredientFromCursor(ingredients));
-    }
-
-    ingredients.close();
-
-    List<Step> stepList = new ArrayList<>();
-
-    while (steps.moveToNext()) {
-      stepList.add(stepFromCursor(steps));
-    }
-
-    steps.close();
-
     return Recipe.builder()
         .id(id)
         .name(name)
-        .ingredients(ingredientList)
-        .steps(stepList)
+        .ingredients(ingredients)
+        .steps(steps)
         .servings(servings)
         .image(image)
         .build();

@@ -1,6 +1,5 @@
 package com.sedsoftware.bakingapp.data.source;
 
-import android.support.annotation.NonNull;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import io.reactivex.Observable;
 import java.util.List;
@@ -13,5 +12,5 @@ public interface RecipeDataSource {
 
   void saveRecipes(List<Recipe> recipes);
 
-  void saveRecipe(@NonNull Recipe recipe);
+  void deleteAllRecipes();
 }

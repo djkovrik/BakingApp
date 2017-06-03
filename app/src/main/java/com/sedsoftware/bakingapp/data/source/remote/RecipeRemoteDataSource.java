@@ -1,6 +1,5 @@
 package com.sedsoftware.bakingapp.data.source.remote;
 
-import android.support.annotation.NonNull;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import com.sedsoftware.bakingapp.data.source.RecipeDataSource;
 import com.sedsoftware.bakingapp.utils.RxUtils;
@@ -42,8 +41,8 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   }
 
   @Override
-  public void saveRecipe(@NonNull Recipe recipe) {
-    // Not required because we won't upload data to the remote server
-    throw new UnsupportedOperationException("saveRecipe in RecipeRemoteDataSource not implemented!");
+  public void deleteAllRecipes() {
+    // Not required because we won't delete data from the remote server
+    throw new UnsupportedOperationException("deleteAllRecipes in RecipeRemoteDataSource not implemented!");
   }
 }
