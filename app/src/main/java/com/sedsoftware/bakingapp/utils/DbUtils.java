@@ -94,14 +94,14 @@ public class DbUtils {
     while (cursor.moveToNext()) {
 
       int stepId = cursor.getInt(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_STEP_ID));
-      String sdesc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_SHORT_DESC));
+      String sDesc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_SHORT_DESC));
       String desc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_DESC));
       String video = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_VIDEO_URL));
       String thumb = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_THUMB_URL));
 
       Step step = Step.builder()
           .id(stepId)
-          .shortDescription(sdesc)
+          .shortDescription(sDesc)
           .description(desc)
           .videoURL(video)
           .thumbnailURL(thumb)
@@ -115,7 +115,7 @@ public class DbUtils {
 
   // TODO(1) OPTIMIZE THIS
 
-  public static Recipe recipeFromCursor(Cursor recipe, List<Ingredient> ingredients, List<Step> steps) {
+  public static Recipe recipeFromCursor(Cursor recipe) {
 
     int id = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
     String name = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
@@ -125,8 +125,8 @@ public class DbUtils {
     return Recipe.builder()
         .id(id)
         .name(name)
-        .ingredients(ingredients)
-        .steps(steps)
+        .ingredients(null)
+        .steps(null)
         .servings(servings)
         .image(image)
         .build();
