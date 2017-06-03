@@ -27,6 +27,6 @@ public class StepPersistenceContract {
           + StepEntry.COLUMN_SHORT_DESC + " TEXT NOT NULL,"
           + StepEntry.COLUMN_DESC + " TEXT NOT NULL,"
           + StepEntry.COLUMN_VIDEO_URL + " TEXT NOT NULL,"
-          + StepEntry.COLUMN_THUMB_URL + " TEXT NOT NULL,"
+          + StepEntry.COLUMN_THUMB_URL + " TEXT NOT NULL"
           + ")";
 }

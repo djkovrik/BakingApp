@@ -20,6 +20,6 @@ public class RecipePersistenceContract {
           + RecipeEntry.COLUMN_RECIPE_ID + " INTEGER PRIMARY KEY,"
           + RecipeEntry.COLUMN_NAME + " TEXT NOT NULL,"
           + RecipeEntry.COLUMN_SERVINGS + " INTEGER NOT NULL,"
-          + RecipeEntry.COLUMN_IMAGE + " TEXT NOT NULL,"
+          + RecipeEntry.COLUMN_IMAGE + " TEXT NOT NULL"
           + ")";
 }

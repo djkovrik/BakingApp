@@ -23,6 +23,6 @@ public class IngredientPersistenceContract {
           + IngredientEntry.COLUMN_RECIPE_ID + " INTEGER NOT NULL,"
           + IngredientEntry.COLUMN_QUANTITY + " REAL NOT NULL,"
           + IngredientEntry.COLUMN_MEASURE + " TEXT NOT NULL,"
-          + IngredientEntry.COLUMN_INGREDIENT + " TEXT NOT NULL,"
+          + IngredientEntry.COLUMN_INGREDIENT + " TEXT NOT NULL"
           + ")";
 }
