@@ -46,7 +46,7 @@ dependencies {
   def gson = rootProject.ext.gsonDependency
   def butterKnife = rootProject.ext.butterKnifeDependencies
   def autoValue = rootProject.ext.autoValueDependencies
-  def storio = rootProject.ext.storioDependencies
+  def sqlBrite = rootProject.ext.sqlBriteDependency
   def timber = rootProject.ext.timberDependency
   def glide = rootProject.ext.glideDependency
   def stetho = rootProject.ext.stethoDependencies
@@ -89,10 +89,6 @@ dependencies {
   annotationProcessor autoValue.gsonApt
   provided autoValue.gsonProvided
 
-  //StorIO
-  compile storio.sqlLite
-  compile storio.contentResolver
-
   // Stetho
   compile stetho.stetho
   compile stetho.networkHelper
@@ -104,6 +100,7 @@ dependencies {
 
   compile okhttp
   compile gson
+  compile sqlBrite
   compile timber
   compile glide
   compile materialValues
