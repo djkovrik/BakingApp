@@ -19,6 +19,7 @@ ext {
   supportLibVersion = "25.3.1"
   rxAndroidVersion = "2.0.1"
   rxJavaVersion = "2.1.0"
+  rxJavaIneropVersion = "0.10.0"
   daggerVersion = "2.10"
   retrofitVersion = "2.3.0"
   okhttpVersion = "3.8.0"
@@ -38,7 +39,7 @@ ext {
   espressoDependency = "com.android.support.test.espresso:espresso-core:${espressoVersion}"
 
   espressoExcludeGroups = [
-      group1 : "com.android.support", module1: "support-annotations"
+      group1: "com.android.support", module1: "support-annotations"
   ]
 
   // Libraries
@@ -50,8 +51,9 @@ ext {
   ]
 
   rxDependencies = [
-      rxAndroid: "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-      rxJava   : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+      rxAndroid    : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+      rxJava       : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+      rxJavaInterop: "com.github.akarnokd:rxjava2-interop:${rxJavaIneropVersion}"
   ]
 
   daggerDependencies = [

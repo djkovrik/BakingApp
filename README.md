@@ -1,7 +1,7 @@
 Backing App created as a part of Udacity [Android Developer Nanodegree Program](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801).
 
 ## Used Libraries
-* [RxJava 2](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [RxJava 2](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid), [RxJava2Interop](https://github.com/akarnokd/RxJava2Interop)
 * [Dagger 2](https://github.com/google/dagger)
 * [Retrofit 2](https://github.com/square/retrofit) with [RxJava adapter](https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2) and [Gson converter](https://github.com/square/retrofit/tree/master/retrofit-converters/gson)
 * [OkHttp](https://github.com/square/okhttp)
