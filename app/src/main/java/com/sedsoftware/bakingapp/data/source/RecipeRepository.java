@@ -35,9 +35,4 @@ public class RecipeRepository implements RecipeDataSource {
   public void saveRecipes(List<Recipe> recipes) {
 
   }
-
-  @Override
-  public void deleteAllRecipes() {
-
-  }
 }

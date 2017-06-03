@@ -67,8 +67,7 @@ public class RecipeLocalDataSource implements RecipeDataSource {
     }
   }
 
-  @Override
-  public void deleteAllRecipes() {
+  private void deleteAllRecipes() {
     databaseHelper.delete(RecipeEntry.TABLE_NAME, null);
     databaseHelper.delete(StepEntry.TABLE_NAME, null);
     databaseHelper.delete(IngredientEntry.TABLE_NAME, null);

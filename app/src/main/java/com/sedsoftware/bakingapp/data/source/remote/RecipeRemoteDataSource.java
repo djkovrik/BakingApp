@@ -39,10 +39,4 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
     // Not required because we won't upload data to the remote server
     throw new UnsupportedOperationException("saveRecipes in RecipeRemoteDataSource not implemented!");
   }
-
-  @Override
-  public void deleteAllRecipes() {
-    // Not required because we won't delete data from the remote server
-    throw new UnsupportedOperationException("deleteAllRecipes in RecipeRemoteDataSource not implemented!");
-  }
 }
