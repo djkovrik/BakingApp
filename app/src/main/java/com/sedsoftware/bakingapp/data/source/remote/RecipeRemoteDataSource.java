@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 public class RecipeRemoteDataSource implements RecipeDataSource {
 
   @Inject
-  public RecipeRemoteDataSource() {
+  public RecipeRemoteDataSource(RecipeService service) {
   }
 
   @Override

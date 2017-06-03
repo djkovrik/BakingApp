@@ -4,6 +4,7 @@ import android.content.Context;
 import com.sedsoftware.bakingapp.data.source.local.Local;
 import com.sedsoftware.bakingapp.data.source.local.RecipeLocalDataSource;
 import com.sedsoftware.bakingapp.data.source.remote.RecipeRemoteDataSource;
+import com.sedsoftware.bakingapp.data.source.remote.RecipeService;
 import com.sedsoftware.bakingapp.data.source.remote.Remote;
 import dagger.Module;
 import dagger.Provides;
@@ -22,7 +23,7 @@ public class RecipeRepositoryModule {
   @Singleton
   @Provides
   @Remote
-  RecipeDataSource provideRecipeRemoteDataSource() {
-    return new RecipeRemoteDataSource();
+  RecipeDataSource provideRecipeRemoteDataSource(RecipeService service) {
+    return new RecipeRemoteDataSource(service);
   }
 }
