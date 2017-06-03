@@ -60,6 +60,8 @@ public class RecipeLocalDataSource implements RecipeDataSource {
             DbUtils.recipeToContentValues(recipe));
       }
 
+      transaction.markSuccessful();
+
     } finally {
       transaction.end();
     }
