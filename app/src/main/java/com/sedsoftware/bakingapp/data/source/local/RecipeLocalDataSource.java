@@ -1,9 +1,9 @@
 package com.sedsoftware.bakingapp.data.source.local;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import com.sedsoftware.bakingapp.data.source.RecipeDataSource;
+import com.squareup.sqlbrite.BriteDatabase;
 import io.reactivex.Observable;
 import java.util.List;
 import javax.inject.Inject;
@@ -12,8 +12,11 @@ import javax.inject.Singleton;
 @Singleton
 public class RecipeLocalDataSource implements RecipeDataSource {
 
+  private final BriteDatabase databaseHelper;
+
   @Inject
-  public RecipeLocalDataSource(Context context) {
+  public RecipeLocalDataSource(BriteDatabase briteDatabase) {
+    this.databaseHelper = briteDatabase;
   }
 
   @Override
