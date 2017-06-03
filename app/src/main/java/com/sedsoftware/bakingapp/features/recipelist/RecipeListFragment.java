@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Recipe;
-import com.sedsoftware.bakingapp.features.recipelist.RecipeListContract.Presenter;
 import java.util.List;
 
 
@@ -33,7 +32,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
   }
 
   @Override
-  public void setPresenter(@NonNull Presenter presenter) {
+  public void setPresenter(@NonNull RecipeListContract.Presenter presenter) {
     this.presenter = presenter;
   }
 

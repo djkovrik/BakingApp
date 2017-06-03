@@ -11,9 +11,7 @@ public interface RecipeDataSource {
 
   Observable<Recipe> getRecipe(int recipeId);
 
+  void saveRecipes(List<Recipe> recipes);
+
   void saveRecipe(@NonNull Recipe recipe);
-
-  void refreshRecipeList();
-
-  void deleteRecipeList();
 }

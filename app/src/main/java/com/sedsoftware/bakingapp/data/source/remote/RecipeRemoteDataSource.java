@@ -11,8 +11,11 @@ import javax.inject.Singleton;
 @Singleton
 public class RecipeRemoteDataSource implements RecipeDataSource {
 
+  private final RecipeService service;
+
   @Inject
   public RecipeRemoteDataSource(RecipeService service) {
+    this.service = service;
   }
 
   @Override
@@ -26,17 +29,12 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   }
 
   @Override
+  public void saveRecipes(List<Recipe> recipes) {
+
+  }
+
+  @Override
   public void saveRecipe(@NonNull Recipe recipe) {
-
-  }
-
-  @Override
-  public void refreshRecipeList() {
-
-  }
-
-  @Override
-  public void deleteRecipeList() {
 
   }
 }

@@ -33,17 +33,12 @@ public class RecipeRepository implements RecipeDataSource {
   }
 
   @Override
+  public void saveRecipes(List<Recipe> recipes) {
+
+  }
+
+  @Override
   public void saveRecipe(@NonNull Recipe recipe) {
-
-  }
-
-  @Override
-  public void refreshRecipeList() {
-
-  }
-
-  @Override
-  public void deleteRecipeList() {
 
   }
 }
