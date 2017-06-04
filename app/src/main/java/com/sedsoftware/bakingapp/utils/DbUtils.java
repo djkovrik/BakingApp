@@ -2,6 +2,7 @@ package com.sedsoftware.bakingapp.utils;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import com.sedsoftware.bakingapp.data.model.Step;
@@ -21,7 +22,7 @@ public class DbUtils {
     return "SELECT * FROM " + tableName + " WHERE " + column + " = ?";
   }
 
-  public static ContentValues ingredientToContentValues(Ingredient ingredient, int recipeId) {
+  public static ContentValues ingredientToContentValues(@NonNull Ingredient ingredient, int recipeId) {
     ContentValues cv = new ContentValues();
 
     cv.put(IngredientEntry.COLUMN_RECIPE_ID, recipeId);
@@ -32,7 +33,7 @@ public class DbUtils {
     return cv;
   }
 
-  public static ContentValues stepToContentValues(Step step, int recipeId) {
+  public static ContentValues stepToContentValues(@NonNull Step step, int recipeId) {
     ContentValues cv = new ContentValues();
 
     cv.put(StepEntry.COLUMN_RECIPE_ID, recipeId);
@@ -45,7 +46,7 @@ public class DbUtils {
     return cv;
   }
 
-  public static ContentValues recipeToContentValues(Recipe recipe) {
+  public static ContentValues recipeToContentValues(@NonNull Recipe recipe) {
     ContentValues cv = new ContentValues();
 
     cv.put(RecipeEntry.COLUMN_RECIPE_ID, recipe.id());
@@ -56,79 +57,66 @@ public class DbUtils {
     return cv;
   }
 
-  public static List<Ingredient> ingredientsFromCursor(Cursor cursor) {
+  public static List<Ingredient> ingredientsFromCursor(@NonNull Cursor cursor) {
 
     List<Ingredient> ingredientsList = new ArrayList<>();
 
-    cursor.moveToFirst();
+    // Cursor moved to -1 position so we won't miss the first
+    // element because of moveToNext() call
+    if (cursor.getCount() > 0) {
+      cursor.moveToPosition(-1);
 
-    while (cursor.moveToNext()) {
+      while (cursor.moveToNext()) {
 
-      float quantity = cursor
-          .getFloat(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_QUANTITY));
+        float quantity = cursor
+            .getFloat(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_QUANTITY));
 
-      String measure = cursor
-          .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_MEASURE));
+        String measure = cursor
+            .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_MEASURE));
 
-      String ingredient = cursor
-          .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_INGREDIENT));
+        String ingredient = cursor
+            .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_INGREDIENT));
 
-      Ingredient result = Ingredient.builder()
-          .quantity(quantity)
-          .measure(measure)
-          .ingredient(ingredient)
-          .build();
+        Ingredient result = Ingredient.builder()
+            .quantity(quantity)
+            .measure(measure)
+            .ingredient(ingredient)
+            .build();
 
-      ingredientsList.add(result);
+        ingredientsList.add(result);
+      }
     }
 
     return ingredientsList;
   }
 
-  public static List<Step> stepsFromCursor(Cursor cursor) {
+  public static List<Step> stepsFromCursor(@NonNull Cursor cursor) {
 
     List<Step> stepsList = new ArrayList<>();
 
-    cursor.moveToFirst();
+    if (cursor.getCount() > 0) {
+      cursor.moveToPosition(-1);
 
-    while (cursor.moveToNext()) {
+      while (cursor.moveToNext()) {
 
-      int stepId = cursor.getInt(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_STEP_ID));
-      String sDesc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_SHORT_DESC));
-      String desc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_DESC));
-      String video = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_VIDEO_URL));
-      String thumb = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_THUMB_URL));
+        int stepId = cursor.getInt(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_STEP_ID));
+        String sDesc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_SHORT_DESC));
+        String desc = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_DESC));
+        String video = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_VIDEO_URL));
+        String thumb = cursor.getString(cursor.getColumnIndexOrThrow(StepEntry.COLUMN_THUMB_URL));
 
-      Step step = Step.builder()
-          .id(stepId)
-          .shortDescription(sDesc)
-          .description(desc)
-          .videoURL(video)
-          .thumbnailURL(thumb)
-          .build();
+        Step step = Step.builder()
+            .id(stepId)
+            .shortDescription(sDesc)
+            .description(desc)
+            .videoURL(video)
+            .thumbnailURL(thumb)
+            .build();
 
-      stepsList.add(step);
+        stepsList.add(step);
+      }
     }
 
     return stepsList;
-  }
-
-  // TODO(1) OPTIMIZE THIS
-
-  public static Recipe recipeFromCursor(Cursor recipe) {
-
-    int id = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
-    String name = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
-    int servings = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_SERVINGS));
-    String image = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_IMAGE));
-
-    return Recipe.builder()
-        .id(id)
-        .name(name)
-        .ingredients(null)
-        .steps(null)
-        .servings(servings)
-        .image(image)
-        .build();
   }
 }

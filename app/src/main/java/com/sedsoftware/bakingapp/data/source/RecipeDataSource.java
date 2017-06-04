@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface RecipeDataSource {
 
-  Observable<List<Recipe>> getRecipes();
-
-  Observable<Recipe> getRecipe(int recipeId);
-
   void saveRecipes(List<Recipe> recipes);
+
+  Observable<List<Recipe>> getRecipes();
 }

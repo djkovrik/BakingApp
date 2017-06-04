@@ -19,24 +19,16 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   }
 
   @Override
+  public void saveRecipes(List<Recipe> recipes) {
+    // Not required because we won't upload data to the remote server
+    throw new UnsupportedOperationException(
+        "saveRecipes in RecipeRemoteDataSource not implemented!");
+  }
+
+  @Override
   public Observable<List<Recipe>> getRecipes() {
     return service
         .loadRecipesFromServer()
         .compose(RxUtils.applySchedulers());
-  }
-
-  @Override
-  public Observable<Recipe> getRecipe(int recipeId) {
-    return service
-        .loadRecipesFromServer()
-        .compose(RxUtils.applySchedulers())
-        .flatMap(Observable::fromIterable)
-        .filter(recipe -> recipe.id() == recipeId);
-  }
-
-  @Override
-  public void saveRecipes(List<Recipe> recipes) {
-    // Not required because we won't upload data to the remote server
-    throw new UnsupportedOperationException("saveRecipes in RecipeRemoteDataSource not implemented!");
   }
 }
