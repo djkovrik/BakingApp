@@ -73,7 +73,6 @@ dependencies {
   // Rx
   compile rx.rxAndroid
   compile rx.rxJava
-  compile rx.rxJavaInterop
 
   // Dagger
   compile dagger.dagger
