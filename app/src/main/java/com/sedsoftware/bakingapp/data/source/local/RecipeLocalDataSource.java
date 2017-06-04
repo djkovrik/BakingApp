@@ -27,6 +27,41 @@ public class RecipeLocalDataSource implements RecipeDataSource {
   }
 
   @Override
+  public Observable<List<Recipe>> getRecipes() {
+
+    List<Recipe> results = new ArrayList<>();
+
+    databaseHelper.createQuery(RecipeEntry.TABLE_NAME,
+        DbUtils.getSelectAllQuery(RecipeEntry.TABLE_NAME))
+        .subscribe(query -> {
+
+          Cursor recipe = query.run();
+
+          while (recipe != null && recipe.moveToNext()) {
+            int id = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
+            String name = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
+            int servings = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_SERVINGS));
+            String image = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_IMAGE));
+
+            rx.Observable
+                .zip(getIngredientsForRecipe(id), getStepsForRecipe(id), (ingredients, steps)
+                    -> Recipe.builder()
+                    .id(id)
+                    .name(name)
+                    .ingredients(ingredients)
+                    .steps(steps)
+                    .servings(servings)
+                    .image(image)
+                    .build())
+                .subscribe(results::add);
+          }
+        });
+
+    // returns RxJava2 Observable
+    return Observable.just(results);
+  }
+
+  @Override
   public void saveRecipes(List<Recipe> recipes) {
 
     BriteDatabase.Transaction transaction = databaseHelper.newTransaction();
@@ -60,38 +95,9 @@ public class RecipeLocalDataSource implements RecipeDataSource {
   }
 
   @Override
-  public Observable<List<Recipe>> getRecipes() {
-
-    List<Recipe> results = new ArrayList<>();
-
-    databaseHelper.createQuery(RecipeEntry.TABLE_NAME,
-        DbUtils.getSelectAllQuery(RecipeEntry.TABLE_NAME))
-        .subscribe(query -> {
-
-          Cursor recipe = query.run();
-
-          while (recipe != null && recipe.moveToNext()) {
-            int id = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
-            String name = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
-            int servings = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_SERVINGS));
-            String image = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_IMAGE));
-
-            rx.Observable
-                .zip(getIngredientsForRecipe(id), getStepsForRecipe(id), (ingredients, steps)
-                    -> Recipe.builder()
-                    .id(id)
-                    .name(name)
-                    .ingredients(ingredients)
-                    .steps(steps)
-                    .servings(servings)
-                    .image(image)
-                    .build())
-                .subscribe(results::add);
-          }
-        });
-
-    // returns RxJava2 Observable
-    return Observable.just(results);
+  public void syncRecipes() {
+    // Not implemented because sync handled by main repository
+    throw new UnsupportedOperationException("syncRecipes in RemoteDataSource is not implemented!");
   }
 
   private rx.Observable<List<Ingredient>> getIngredientsForRecipe(int recipeId) {
