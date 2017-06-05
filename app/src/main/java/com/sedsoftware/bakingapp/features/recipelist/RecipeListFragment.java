@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import java.util.List;
+import timber.log.Timber;
 
 
 public class RecipeListFragment extends Fragment implements RecipeListContract.View {
@@ -21,6 +22,18 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   public static RecipeListFragment newInstance() {
     return new RecipeListFragment();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    presenter.subscribe();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    presenter.unsubscribe();
   }
 
   @Nullable
@@ -38,12 +51,9 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   @Override
   public void showRecipeList(List<Recipe> recipeList) {
-
-  }
-
-  @Override
-  public void showRecipeDetails(Recipe recipe) {
-
+    for (Recipe recipe : recipeList) {
+      Timber.d(" --- RECIPE: " + recipe.name());
+    }
   }
 
   @Override

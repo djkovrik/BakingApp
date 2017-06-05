@@ -11,8 +11,6 @@ public interface RecipeListContract {
 
     void showRecipeList(List<Recipe> recipeList);
 
-    void showRecipeDetails(Recipe recipe);
-
     void showLoadingIndicator(boolean show);
 
     void showErrorMessage();

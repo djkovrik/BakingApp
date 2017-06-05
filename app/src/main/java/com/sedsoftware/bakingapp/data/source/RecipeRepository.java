@@ -1,6 +1,8 @@
 package com.sedsoftware.bakingapp.data.source;
 
+import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Recipe;
+import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.data.source.local.Local;
 import com.sedsoftware.bakingapp.data.source.local.prefs.PreferencesHelper;
 import com.sedsoftware.bakingapp.data.source.remote.Remote;
@@ -38,6 +40,16 @@ public class RecipeRepository implements RecipeDataSource {
     }
 
     return recipeLocalDataSource.getRecipes();
+  }
+
+  @Override
+  public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
+    return recipeLocalDataSource.getRecipeIngredients(recipeId);
+  }
+
+  @Override
+  public Observable<List<Step>> getRecipeSteps(int recipeId) {
+    return recipeLocalDataSource.getRecipeSteps(recipeId);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.sedsoftware.bakingapp.data.source.local;
 
-import android.database.Cursor;
 import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import com.sedsoftware.bakingapp.data.model.Step;
@@ -10,8 +9,8 @@ import com.sedsoftware.bakingapp.data.source.local.db.RecipePersistenceContract.
 import com.sedsoftware.bakingapp.data.source.local.db.StepPersistenceContract.StepEntry;
 import com.sedsoftware.bakingapp.utils.DbUtils;
 import com.squareup.sqlbrite.BriteDatabase;
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Observable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,36 +28,37 @@ public class RecipeLocalDataSource implements RecipeDataSource {
   @Override
   public Observable<List<Recipe>> getRecipes() {
 
-    List<Recipe> results = new ArrayList<>();
+    rx.Observable<List<Recipe>> listObservable = databaseHelper
+        .createQuery(RecipeEntry.TABLE_NAME, DbUtils.getSelectAllQuery(RecipeEntry.TABLE_NAME))
+        .mapToOne(DbUtils::recipesFromCursor);
 
-    databaseHelper.createQuery(RecipeEntry.TABLE_NAME,
-        DbUtils.getSelectAllQuery(RecipeEntry.TABLE_NAME))
-        .subscribe(query -> {
+    return RxJavaInterop.toV2Observable(listObservable);
+  }
 
-          Cursor recipe = query.run();
+  @Override
+  public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
 
-          while (recipe != null && recipe.moveToNext()) {
-            int id = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
-            String name = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
-            int servings = recipe.getInt(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_SERVINGS));
-            String image = recipe.getString(recipe.getColumnIndexOrThrow(RecipeEntry.COLUMN_IMAGE));
+    rx.Observable<List<Ingredient>> listObservable = databaseHelper
+        .createQuery(IngredientEntry.TABLE_NAME,
+            DbUtils.getSelectByIdQuery(IngredientEntry.TABLE_NAME,
+                IngredientEntry.COLUMN_RECIPE_ID),
+            String.valueOf(recipeId))
+        .mapToOne(DbUtils::ingredientsFromCursor);
 
-            rx.Observable
-                .zip(getIngredientsForRecipe(id), getStepsForRecipe(id), (ingredients, steps)
-                    -> Recipe.builder()
-                    .id(id)
-                    .name(name)
-                    .ingredients(ingredients)
-                    .steps(steps)
-                    .servings(servings)
-                    .image(image)
-                    .build())
-                .subscribe(results::add);
-          }
-        });
+    return RxJavaInterop.toV2Observable(listObservable);
+  }
 
-    // returns RxJava2 Observable
-    return Observable.just(results);
+  @Override
+  public Observable<List<Step>> getRecipeSteps(int recipeId) {
+
+    rx.Observable<List<Step>> listObservable = databaseHelper
+        .createQuery(StepEntry.TABLE_NAME,
+            DbUtils.getSelectByIdQuery(StepEntry.TABLE_NAME,
+                StepEntry.COLUMN_RECIPE_ID),
+            String.valueOf(recipeId))
+        .mapToOne(DbUtils::stepsFromCursor);
+
+    return RxJavaInterop.toV2Observable(listObservable);
   }
 
   @Override
@@ -98,26 +98,6 @@ public class RecipeLocalDataSource implements RecipeDataSource {
   public void syncRecipes() {
     // Not implemented because sync handled by main repository
     throw new UnsupportedOperationException("syncRecipes in RemoteDataSource is not implemented!");
-  }
-
-  private rx.Observable<List<Ingredient>> getIngredientsForRecipe(int recipeId) {
-
-    return databaseHelper
-        .createQuery(IngredientEntry.TABLE_NAME,
-            DbUtils.getSelectByIdQuery(IngredientEntry.TABLE_NAME,
-                IngredientEntry.COLUMN_RECIPE_ID),
-            String.valueOf(recipeId))
-        .mapToOne(DbUtils::ingredientsFromCursor);
-  }
-
-  private rx.Observable<List<Step>> getStepsForRecipe(int recipeId) {
-
-    return databaseHelper
-        .createQuery(StepEntry.TABLE_NAME,
-            DbUtils.getSelectByIdQuery(StepEntry.TABLE_NAME,
-                StepEntry.COLUMN_RECIPE_ID),
-            String.valueOf(recipeId))
-        .mapToOne(DbUtils::stepsFromCursor);
   }
 
   private void deleteAllRecipes() {

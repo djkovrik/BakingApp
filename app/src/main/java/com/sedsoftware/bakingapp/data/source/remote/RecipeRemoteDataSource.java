@@ -1,6 +1,8 @@
 package com.sedsoftware.bakingapp.data.source.remote;
 
+import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Recipe;
+import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.data.source.RecipeDataSource;
 import com.sedsoftware.bakingapp.utils.RxUtils;
 import io.reactivex.Observable;
@@ -26,14 +28,22 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   }
 
   @Override
+  public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
+    throw new UnsupportedOperationException("getRecipeIngredients in RemoteDataSource is not implemented!");
+  }
+
+  @Override
+  public Observable<List<Step>> getRecipeSteps(int recipeId) {
+    throw new UnsupportedOperationException("getRecipeSteps in RemoteDataSource is not implemented!");
+  }
+
+  @Override
   public void saveRecipes(List<Recipe> recipes) {
-    // Not implemented because we won't save recipes to server
     throw new UnsupportedOperationException("saveRecipes in RemoteDataSource is not implemented!");
   }
 
   @Override
   public void syncRecipes() {
-    // Not implemented because sync handled by main repository
     throw new UnsupportedOperationException("syncRecipes in RemoteDataSource is not implemented!");
   }
 }

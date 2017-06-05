@@ -22,7 +22,8 @@ public class DbUtils {
     return "SELECT * FROM " + tableName + " WHERE " + column + " = ?";
   }
 
-  public static ContentValues ingredientToContentValues(@NonNull Ingredient ingredient, int recipeId) {
+  public static ContentValues ingredientToContentValues(@NonNull Ingredient ingredient,
+      int recipeId) {
     ContentValues cv = new ContentValues();
 
     cv.put(IngredientEntry.COLUMN_RECIPE_ID, recipeId);
@@ -68,14 +69,9 @@ public class DbUtils {
 
       while (cursor.moveToNext()) {
 
-        float quantity = cursor
-            .getFloat(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_QUANTITY));
-
-        String measure = cursor
-            .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_MEASURE));
-
-        String ingredient = cursor
-            .getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_INGREDIENT));
+        float quantity = cursor.getFloat(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_QUANTITY));
+        String measure = cursor.getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_MEASURE));
+        String ingredient = cursor.getString(cursor.getColumnIndexOrThrow(IngredientEntry.COLUMN_INGREDIENT));
 
         Ingredient result = Ingredient.builder()
             .quantity(quantity)
@@ -118,5 +114,35 @@ public class DbUtils {
     }
 
     return stepsList;
+  }
+
+  public static List<Recipe> recipesFromCursor(@NonNull Cursor cursor) {
+
+    List<Recipe> recipeList = new ArrayList<>();
+
+    if (cursor.getCount() > 0) {
+      cursor.moveToPosition(-1);
+
+      while (cursor.moveToNext()) {
+
+        int id = cursor.getInt(cursor.getColumnIndexOrThrow(RecipeEntry.COLUMN_RECIPE_ID));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(RecipeEntry.COLUMN_NAME));
+        int servings = cursor.getInt(cursor.getColumnIndexOrThrow(RecipeEntry.COLUMN_SERVINGS));
+        String image = cursor.getString(cursor.getColumnIndexOrThrow(RecipeEntry.COLUMN_IMAGE));
+
+        Recipe recipe = Recipe.builder()
+            .id(id)
+            .name(name)
+            .ingredients(new ArrayList<>())
+            .steps(new ArrayList<>())
+            .servings(servings)
+            .image(image)
+            .build();
+
+        recipeList.add(recipe);
+      }
+    }
+
+    return recipeList;
   }
 }
