@@ -10,10 +10,16 @@ public interface RecipeListContract {
   interface View extends BaseView<Presenter> {
 
     void showRecipeList(List<Recipe> recipeList);
+
+    void showRecipeDetails(Recipe recipe);
+
+    void showLoadingIndicator(boolean show);
+
+    void showErrorMessage();
   }
 
   interface Presenter extends BasePresenter {
 
-    void loadRecipes(boolean forceReloadFromServer);
+    void loadRecipesFromRepo(boolean forcedSync);
   }
 }

@@ -40,4 +40,19 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
   public void showRecipeList(List<Recipe> recipeList) {
 
   }
+
+  @Override
+  public void showRecipeDetails(Recipe recipe) {
+
+  }
+
+  @Override
+  public void showLoadingIndicator(boolean show) {
+
+  }
+
+  @Override
+  public void showErrorMessage() {
+
+  }
 }
