@@ -94,12 +94,6 @@ public class RecipeLocalDataSource implements RecipeDataSource {
     }
   }
 
-  @Override
-  public void syncRecipes() {
-    // Not implemented because sync handled by main repository
-    throw new UnsupportedOperationException("syncRecipes in RemoteDataSource is not implemented!");
-  }
-
   private void deleteAllRecipes() {
     databaseHelper.delete(RecipeEntry.TABLE_NAME, null);
     databaseHelper.delete(StepEntry.TABLE_NAME, null);

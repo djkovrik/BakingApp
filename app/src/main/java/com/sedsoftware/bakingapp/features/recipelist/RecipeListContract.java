@@ -18,6 +18,6 @@ public interface RecipeListContract {
 
   interface Presenter extends BasePresenter {
 
-    void loadRecipesFromRepo(boolean forcedSync);
+    void loadRecipesFromRepo();
   }
 }

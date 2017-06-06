@@ -7,13 +7,9 @@ import com.sedsoftware.bakingapp.data.source.local.Local;
 import com.sedsoftware.bakingapp.data.source.local.prefs.PreferencesHelper;
 import com.sedsoftware.bakingapp.data.source.remote.Remote;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import timber.log.Timber;
 
 @Singleton
 public class RecipeRepository implements RecipeDataSource {
@@ -36,10 +32,12 @@ public class RecipeRepository implements RecipeDataSource {
   public Observable<List<Recipe>> getRecipes() {
 
     if (!preferencesHelper.isRecipeListSynced()) {
-      syncRecipes();
+      return recipeRemoteDataSource
+          .getRecipes()
+          .doOnNext(this::saveRecipes);
+    } else {
+      return recipeLocalDataSource.getRecipes();
     }
-
-    return recipeLocalDataSource.getRecipes();
   }
 
   @Override
@@ -54,39 +52,10 @@ public class RecipeRepository implements RecipeDataSource {
 
   @Override
   public void saveRecipes(List<Recipe> recipes) {
-    throw new UnsupportedOperationException("saveRecipes in RecipeRepository is not implemented!");
+    recipeLocalDataSource.saveRecipes(recipes);
   }
 
-  @Override
-  public void syncRecipes() {
-    recipeRemoteDataSource
-        .getRecipes()
-        .subscribe(getServerObserver());
-  }
-
-  private Observer<List<Recipe>> getServerObserver() {
-    return new Observer<List<Recipe>>() {
-      @Override
-      public void onSubscribe(@NonNull Disposable d) {
-        Timber.d("Sync started...");
-      }
-
-      @Override
-      public void onNext(@NonNull List<Recipe> recipeList) {
-        recipeLocalDataSource.saveRecipes(recipeList);
-      }
-
-      @Override
-      public void onError(@NonNull Throwable e) {
-        Timber.d("Sync failed!");
-        preferencesHelper.setRecipeListSynced(false);
-      }
-
-      @Override
-      public void onComplete() {
-        Timber.d("Sync completed.");
-        preferencesHelper.setRecipeListSynced(true);
-      }
-    };
+  public void markRepoAsSynced(boolean synced) {
+    preferencesHelper.setRecipeListSynced(synced);
   }
 }

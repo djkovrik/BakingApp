@@ -15,6 +15,4 @@ public interface RecipeDataSource {
   Observable<List<Step>> getRecipeSteps(int recipeId);
 
   void saveRecipes(List<Recipe> recipes);
-
-  void syncRecipes();
 }

@@ -6,14 +6,14 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
-public class RecipeListPresenter implements RecipeListContract.Presenter {
+class RecipeListPresenter implements RecipeListContract.Presenter {
 
   private final RecipeRepository recipeRepository;
   private final RecipeListContract.View recipesView;
   private CompositeDisposable disposableList;
 
   @Inject
-  public RecipeListPresenter(RecipeRepository recipeRepository,
+  RecipeListPresenter(RecipeRepository recipeRepository,
       View recipesView) {
     this.recipeRepository = recipeRepository;
     this.recipesView = recipesView;
@@ -28,7 +28,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
 
   @Override
   public void subscribe() {
-    loadRecipesFromRepo(false);
+    loadRecipesFromRepo();
   }
 
   @Override
@@ -37,21 +37,26 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
   }
 
   @Override
-  public void loadRecipesFromRepo(boolean forcedSync) {
-
-    if (forcedSync) {
-      recipeRepository.syncRecipes();
-    }
+  public void loadRecipesFromRepo() {
 
     disposableList.clear();
 
     Disposable subscription = recipeRepository
         .getRecipes()
+        .doOnSubscribe(disposable -> recipesView.showLoadingIndicator(true))
         .subscribe(
-            // OnNext
-            recipesView::showRecipeList,
+            //OnNext
+            recipeList -> {
+              recipesView.showRecipeList(recipeList);
+              recipeRepository.markRepoAsSynced(true);
+              recipesView.showLoadingIndicator(false);
+            },
             // OnError
-            throwable -> recipesView.showErrorMessage());
+            throwable -> {
+              recipesView.showLoadingIndicator(false);
+              recipesView.showErrorMessage();
+              recipeRepository.markRepoAsSynced(false);
+            });
 
     disposableList.add(subscription);
   }

@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import timber.log.Timber;
 
 @Singleton
 public class RecipeRemoteDataSource implements RecipeDataSource {
@@ -24,7 +25,10 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   public Observable<List<Recipe>> getRecipes() {
     return service
         .loadRecipesFromServer()
-        .compose(RxUtils.applySchedulers());
+        .compose(RxUtils.applySchedulers())
+        .doOnSubscribe(disposable -> Timber.d("Sync started..."))
+        .doOnError(throwable ->  Timber.d("Sync failed!"))
+        .doOnComplete(() -> Timber.d("Sync completed."));
   }
 
   @Override
@@ -40,10 +44,5 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   @Override
   public void saveRecipes(List<Recipe> recipes) {
     throw new UnsupportedOperationException("saveRecipes in RemoteDataSource is not implemented!");
-  }
-
-  @Override
-  public void syncRecipes() {
-    throw new UnsupportedOperationException("syncRecipes in RemoteDataSource is not implemented!");
   }
 }
