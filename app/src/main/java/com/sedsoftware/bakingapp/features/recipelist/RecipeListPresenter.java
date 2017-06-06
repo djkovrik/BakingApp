@@ -38,12 +38,6 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
 
   @Override
   public void loadRecipesFromRepo(boolean forcedSync) {
-    loadRecipesFromRepo(forcedSync, true);
-  }
-
-  private void loadRecipesFromRepo(boolean forcedSync, boolean showLoadingUI) {
-
-    recipesView.showLoadingIndicator(showLoadingUI);
 
     if (forcedSync) {
       recipeRepository.syncRecipes();
@@ -57,9 +51,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
             // OnNext
             recipesView::showRecipeList,
             // OnError
-            throwable -> recipesView.showErrorMessage(),
-            //OnComplete
-            () -> recipesView.showLoadingIndicator(false));
+            throwable -> recipesView.showErrorMessage());
 
     disposableList.add(subscription);
   }
