@@ -4,7 +4,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="@dimen/material_list_single_line_with_avatar_normal_height">
 
   <TextView
     android:id="@+id/list_recipe_name"

@@ -14,10 +14,14 @@ public interface RecipeListContract {
     void showLoadingIndicator(boolean show);
 
     void showErrorMessage();
+
+    void showRecipeDetails(int recipeId);
   }
 
   interface Presenter extends BasePresenter {
 
     void loadRecipesFromRepo();
+
+    void openRecipeDetails(int recipeId);
   }
 }

@@ -15,9 +15,11 @@ import java.util.List;
 class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
   private List<Recipe> recipeList;
+  OnRecipeClickListener recipeClickListener;
 
-  RecipeListAdapter(List<Recipe> recipes) {
+  RecipeListAdapter(List<Recipe> recipes, OnRecipeClickListener listener) {
     setRecipes(recipes);
+    recipeClickListener = listener;
   }
 
   @Override
@@ -52,19 +54,35 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
     recipeList = recipes;
   }
 
-  class RecipeViewHolder extends RecyclerView.ViewHolder {
+  class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     @BindView(R.id.list_recipe_name)
     TextView recipeName;
 
+    private int currentId;
+
     RecipeViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+
+      itemView.setOnClickListener(this);
     }
 
     void bindTo(@NonNull Recipe recipe) {
+
+      currentId = recipe.id();
+
       String name = recipe.name();
       recipeName.setText(name);
     }
+
+    @Override
+    public void onClick(View v) {
+      recipeClickListener.recipeClicked(currentId);
+    }
+  }
+
+  interface OnRecipeClickListener {
+    void recipeClicked(int recipeId);
   }
 }

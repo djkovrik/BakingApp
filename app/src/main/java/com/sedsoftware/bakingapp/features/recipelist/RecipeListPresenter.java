@@ -60,4 +60,9 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
 
     disposableList.add(subscription);
   }
+
+  @Override
+  public void openRecipeDetails(int recipeId) {
+    recipesView.showRecipeDetails(recipeId);
+  }
 }

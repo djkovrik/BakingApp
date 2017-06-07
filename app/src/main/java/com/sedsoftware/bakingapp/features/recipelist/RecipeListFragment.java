@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -45,7 +46,11 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
     unbinder = ButterKnife.bind(this, view);
 
-    recipeListAdapter = new RecipeListAdapter(new ArrayList<>(0));
+    recipeListAdapter = new RecipeListAdapter(
+        new ArrayList<>(0),
+        recipeId -> recipeListPresenter.openRecipeDetails(recipeId)
+    );
+
     recipeListAdapter.setHasStableIds(true);
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -87,6 +92,11 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
   @Override
   public void showErrorMessage() {
     //TODO(1) Implement this
+  }
+
+  @Override
+  public void showRecipeDetails(int recipeId) {
+    Toast.makeText(getContext(), "Recipe clicked: " + String.valueOf(recipeId), Toast.LENGTH_SHORT).show();
   }
 
   @Override
