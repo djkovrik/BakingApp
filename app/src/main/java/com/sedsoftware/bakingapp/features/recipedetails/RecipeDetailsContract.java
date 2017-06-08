@@ -12,7 +12,9 @@ public interface RecipeDetailsContract {
 
     void showIngredientsList(List<Ingredient> ingredients);
 
-    void showStepsLits(List<Step> steps);
+    void showStepsList(List<Step> steps);
+
+    void showErrorMessage();
 
     void showStepDetails(int stepId);
   }

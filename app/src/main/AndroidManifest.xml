@@ -15,10 +15,10 @@
     <activity android:name=".features.recipelist.RecipeListActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
-
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity android:name=".features.recipedetails.RecipeDetailsActivity"/>
   </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.sedsoftware.bakingapp.features.recipelist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Recipe;
+import com.sedsoftware.bakingapp.features.recipedetails.RecipeDetailsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +97,9 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   @Override
   public void showRecipeDetails(int recipeId) {
-    Toast.makeText(getContext(), "Recipe clicked: " + String.valueOf(recipeId), Toast.LENGTH_SHORT).show();
+    Intent intent = new Intent(getContext(), RecipeDetailsActivity.class);
+    intent.putExtra(RecipeDetailsActivity.EXTRA_RECIPE_ID, recipeId);
+    startActivity(intent);
   }
 
   @Override
