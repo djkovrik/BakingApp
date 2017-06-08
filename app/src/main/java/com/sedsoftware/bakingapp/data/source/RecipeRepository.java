@@ -6,6 +6,7 @@ import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.data.source.local.Local;
 import com.sedsoftware.bakingapp.data.source.local.prefs.PreferencesHelper;
 import com.sedsoftware.bakingapp.data.source.remote.Remote;
+import com.sedsoftware.bakingapp.utils.RxUtils;
 import io.reactivex.Observable;
 import java.util.List;
 import javax.inject.Inject;
@@ -34,9 +35,12 @@ public class RecipeRepository implements RecipeDataSource {
     if (!preferencesHelper.isRecipeListSynced()) {
       return recipeRemoteDataSource
           .getRecipes()
+          .compose(RxUtils.applySchedulers())
           .doOnNext(this::saveRecipes);
     } else {
-      return recipeLocalDataSource.getRecipes();
+      return recipeLocalDataSource
+          .getRecipes()
+          .compose(RxUtils.applySchedulers());
     }
   }
 
