@@ -32,7 +32,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             .findFragmentById(R.id.detailsFragmentContainer);
 
     if (recipeDetailsFragment == null) {
-      recipeDetailsFragment = RecipeDetailsFragment.newInstance();
+      recipeDetailsFragment = RecipeDetailsFragment.newInstance(recipeId);
       ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), recipeDetailsFragment,
           R.id.detailsFragmentContainer);
     }

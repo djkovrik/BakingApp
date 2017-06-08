@@ -1,5 +1,6 @@
 package com.sedsoftware.bakingapp.features.recipedetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,6 +17,7 @@ import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.features.recipedetails.RecipeDetailsContract.Presenter;
+import com.sedsoftware.bakingapp.features.recipestep.RecipeStepActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,23 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   private Presenter recipeDetailsPresenter;
 
   private RecipeDetailsAdapter recipeDetailsAdapter;
+  private int recipeId;
 
   public RecipeDetailsFragment() {
   }
 
-  public static RecipeDetailsFragment newInstance() {
-    return new RecipeDetailsFragment();
+  public static RecipeDetailsFragment newInstance(int recipeId) {
+    Bundle arguments = new Bundle();
+    arguments.putInt(RecipeDetailsActivity.EXTRA_RECIPE_ID, recipeId);
+    RecipeDetailsFragment fragment = new RecipeDetailsFragment();
+    fragment.setArguments(arguments);
+    return fragment;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    recipeId = getArguments().getInt(RecipeDetailsActivity.EXTRA_RECIPE_ID);
   }
 
   @Nullable
@@ -100,6 +112,9 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @Override
   public void showStepDetails(int stepId) {
-    Toast.makeText(getContext(), "Step: " + String.valueOf(stepId), Toast.LENGTH_SHORT).show();
+    Intent intent = new Intent(getContext(), RecipeStepActivity.class);
+    intent.putExtra(RecipeStepActivity.EXTRA_RECIPE_ID, recipeId);
+    intent.putExtra(RecipeStepActivity.EXTRA_STEP_ID, stepId);
+    startActivity(intent);
   }
 }
