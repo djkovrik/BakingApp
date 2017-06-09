@@ -14,14 +14,24 @@ import com.sedsoftware.bakingapp.R;
 
 public class RecipeStepSinglePageFragment extends Fragment {
 
-  public static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
-  @BindView(R.id.recipe_step_id)
-  TextView recipeStepId;
+  private static final String EXTRA_SHORT_DESCRIPTION_ID = "EXTRA_SHORT_DESCRIPTION_ID";
+  private static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
+  private static final String EXTRA_VIDEO_URL_ID = "EXTRA_VIDEO_URL_ID";
+
+  @BindView(R.id.recipe_step_short_desc)
+  TextView shortDescTextView;
+  @BindView(R.id.recipe_step_desc)
+  TextView descTextView;
+  @BindView(R.id.recipe_step_video)
+  TextView videoTextView;
   Unbinder unbinder;
 
-  public static RecipeStepSinglePageFragment newInstance(String description) {
+  public static RecipeStepSinglePageFragment newInstance(String shortDescription,
+      String description, String videoUrl) {
     Bundle arguments = new Bundle();
+    arguments.putString(EXTRA_SHORT_DESCRIPTION_ID, shortDescription);
     arguments.putString(EXTRA_DESCRIPTION_ID, description);
+    arguments.putString(EXTRA_VIDEO_URL_ID, videoUrl);
     RecipeStepSinglePageFragment fragment = new RecipeStepSinglePageFragment();
     fragment.setArguments(arguments);
     return fragment;
@@ -43,8 +53,13 @@ public class RecipeStepSinglePageFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    String currentDescription = getArguments().getString(EXTRA_DESCRIPTION_ID);
-    recipeStepId.setText(currentDescription);
+    String shortDescription = getArguments().getString(EXTRA_SHORT_DESCRIPTION_ID);
+    String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
+    String video = getArguments().getString(EXTRA_VIDEO_URL_ID);
+
+    shortDescTextView.setText(shortDescription);
+    descTextView.setText(description);
+    videoTextView.setText(video);
   }
 
   @Override
