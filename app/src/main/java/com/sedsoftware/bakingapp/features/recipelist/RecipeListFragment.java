@@ -1,6 +1,5 @@
 package com.sedsoftware.bakingapp.features.recipelist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -97,9 +96,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   @Override
   public void showRecipeDetails(int recipeId) {
-    Intent intent = new Intent(getContext(), RecipeDetailsActivity.class);
-    intent.putExtra(RecipeDetailsActivity.EXTRA_RECIPE_ID, recipeId);
-    startActivity(intent);
+    startActivity(RecipeDetailsActivity.prepareIntent(getContext(), recipeId));
   }
 
   @Override

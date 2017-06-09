@@ -1,6 +1,5 @@
 package com.sedsoftware.bakingapp.features.recipedetails;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -112,9 +111,6 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @Override
   public void showStepDetails(int stepId) {
-    Intent intent = new Intent(getContext(), RecipeStepActivity.class);
-    intent.putExtra(RecipeStepActivity.EXTRA_RECIPE_ID, recipeId);
-    intent.putExtra(RecipeStepActivity.EXTRA_STEP_ID, stepId);
-    startActivity(intent);
+    startActivity(RecipeStepActivity.prepareIntent(getContext(), recipeId, stepId));
   }
 }

@@ -1,5 +1,7 @@
 package com.sedsoftware.bakingapp.features.recipedetails;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +9,6 @@ import com.sedsoftware.bakingapp.BakingApp;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.utils.ActivityUtils;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
 
@@ -17,6 +18,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
   @Inject
   RecipeDetailsPresenter recipeDetailsPresenter;
 
+  public static Intent prepareIntent(Context context, int recipeId) {
+    Intent intent = new Intent(context, RecipeDetailsActivity.class);
+    intent.putExtra(EXTRA_RECIPE_ID, recipeId);
+    return intent;
+  }
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -24,8 +31,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     setContentView(R.layout.activity_recipe_details);
 
     int recipeId = getIntent().getIntExtra(EXTRA_RECIPE_ID, DEFAULT_RECIPE_ID);
-
-    Timber.d("GOT RECIPE ID: " + recipeId);
 
     RecipeDetailsFragment recipeDetailsFragment =
         (RecipeDetailsFragment) getSupportFragmentManager()

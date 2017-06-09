@@ -25,11 +25,23 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   private RecipeStepContract.Presenter recipeStepPresenter;
   private RecipeStepPageAdapter viewPagerAdapter;
 
+  private int stepId;
+
   public RecipeStepFragment() {
   }
 
-  public static RecipeStepFragment newInstance() {
-    return new RecipeStepFragment();
+  public static RecipeStepFragment newInstance(int stepId) {
+    Bundle arguments = new Bundle();
+    arguments.putInt(RecipeStepActivity.EXTRA_STEP_ID, stepId);
+    RecipeStepFragment fragment = new RecipeStepFragment();
+    fragment.setArguments(arguments);
+    return fragment;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    stepId = getArguments().getInt(RecipeStepActivity.EXTRA_STEP_ID);
   }
 
   @Nullable
