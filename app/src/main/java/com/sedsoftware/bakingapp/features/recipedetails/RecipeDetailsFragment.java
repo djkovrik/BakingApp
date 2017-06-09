@@ -15,7 +15,6 @@ import butterknife.Unbinder;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Step;
-import com.sedsoftware.bakingapp.features.recipedetails.RecipeDetailsContract.Presenter;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   @BindView(R.id.recipe_details_steps)
   RecyclerView recipeDetailsRecyclerView;
   Unbinder unbinder;
-  private Presenter recipeDetailsPresenter;
+  private RecipeDetailsContract.Presenter recipeDetailsPresenter;
 
   private RecipeDetailsAdapter recipeDetailsAdapter;
   private int recipeId;
@@ -87,7 +86,7 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   }
 
   @Override
-  public void setPresenter(Presenter presenter) {
+  public void setPresenter(RecipeDetailsContract.Presenter presenter) {
     this.recipeDetailsPresenter = presenter;
   }
 

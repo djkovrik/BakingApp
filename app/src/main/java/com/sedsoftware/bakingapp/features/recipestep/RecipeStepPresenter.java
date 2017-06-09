@@ -47,7 +47,10 @@ public class RecipeStepPresenter implements RecipeStepContract.Presenter {
         .compose(RxUtils.applySchedulers())
         .subscribe(
             // OnNext
-            stepView::showStepsInViewpager,
+            steps -> {
+              stepView.showStepsInViewpager(steps);
+              stepView.moveToCurrentStepPage();
+            },
             // OnError
             throwable -> stepView.showErrorMessage());
 

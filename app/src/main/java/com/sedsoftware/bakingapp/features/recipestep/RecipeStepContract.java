@@ -12,6 +12,8 @@ public class RecipeStepContract {
     void showStepsInViewpager(List<Step> steps);
 
     void showErrorMessage();
+
+    void moveToCurrentStepPage();
   }
 
   interface Presenter extends BasePresenter {

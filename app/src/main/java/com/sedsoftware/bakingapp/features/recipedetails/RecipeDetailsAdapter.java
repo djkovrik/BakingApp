@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Step;
 import java.util.List;
+import java.util.Locale;
 
 public class RecipeDetailsAdapter extends
     RecyclerView.Adapter<RecipeDetailsAdapter.StepViewHolder> {
@@ -74,7 +75,7 @@ public class RecipeDetailsAdapter extends
       currentId = step.id();
 
       String description = step.shortDescription();
-      stepDescription.setText(description);
+      stepDescription.setText(String.format(Locale.US, "%d. %s", currentId, description));
     }
 
     @Override

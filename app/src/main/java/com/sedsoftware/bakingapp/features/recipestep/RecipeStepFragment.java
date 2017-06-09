@@ -90,4 +90,9 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   public void showErrorMessage() {
     // TODO(3) Implement this
   }
+
+  @Override
+  public void moveToCurrentStepPage() {
+    recipeStepViewPager.setCurrentItem(stepId);
+  }
 }
