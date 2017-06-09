@@ -93,6 +93,7 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @Override
   public void showIngredientsList(List<Ingredient> ingredients) {
+    recipeDetailsIngredients.setText("");
     for (Ingredient ingredient : ingredients) {
       recipeDetailsIngredients.append(ingredient.ingredient());
       recipeDetailsIngredients.append("\n");
