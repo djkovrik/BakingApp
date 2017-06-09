@@ -14,6 +14,7 @@ Backing App created as a part of Udacity [Android Developer Nanodegree Program](
 * [Stetho](https://github.com/facebook/stetho)
 * [LeakCanary](https://github.com/square/leakcanary)
 * [Timber](https://github.com/JakeWharton/timber)
+* [ExoPlayer](https://github.com/google/ExoPlayer)
 
 ## Project Overview
 You will productionize an app, taking it from a functional state to a production-ready state. This will involve finding and handling error cases, adding accessibility features, allowing for localization, adding a widget, and adding a library.
