@@ -18,12 +18,17 @@ public class RecipeStepSinglePageFragment extends Fragment {
   private static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
   private static final String EXTRA_VIDEO_URL_ID = "EXTRA_VIDEO_URL_ID";
 
-  @BindView(R.id.recipe_step_short_desc)
-  TextView shortDescTextView;
-  @BindView(R.id.recipe_step_desc)
-  TextView descTextView;
   @BindView(R.id.recipe_step_video)
   TextView videoTextView;
+
+  @Nullable
+  @BindView(R.id.recipe_step_short_desc)
+  TextView shortDescTextView;
+
+  @Nullable
+  @BindView(R.id.recipe_step_desc)
+  TextView descTextView;
+
   Unbinder unbinder;
 
   public static RecipeStepSinglePageFragment newInstance(String shortDescription,
@@ -53,13 +58,16 @@ public class RecipeStepSinglePageFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    String shortDescription = getArguments().getString(EXTRA_SHORT_DESCRIPTION_ID);
-    String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
     String video = getArguments().getString(EXTRA_VIDEO_URL_ID);
-
-    shortDescTextView.setText(shortDescription);
-    descTextView.setText(description);
     videoTextView.setText(video);
+
+    // We are in portrait mode
+    if (shortDescTextView != null && descTextView != null) {
+      String shortDescription = getArguments().getString(EXTRA_SHORT_DESCRIPTION_ID);
+      String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
+      shortDescTextView.setText(shortDescription);
+      descTextView.setText(description);
+    }
   }
 
   @Override
