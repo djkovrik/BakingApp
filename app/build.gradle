@@ -52,7 +52,6 @@ dependencies {
   def autoValue = rootProject.ext.autoValueDependencies
   def sqlBrite = rootProject.ext.sqlBriteDependency
   def timber = rootProject.ext.timberDependency
-  def glide = rootProject.ext.glideDependency
   def stetho = rootProject.ext.stethoDependencies
   def materialValues = rootProject.ext.materialValuesDependency
   def leakCanary = rootProject.ext.leakCanaryDependency
@@ -108,7 +107,6 @@ dependencies {
   compile gson
   compile sqlBrite
   compile timber
-  compile glide
   compile materialValues
   compile exoPlayer
 }
