@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -24,6 +25,9 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   private RecipeListContract.Presenter recipeListPresenter;
   private RecipeListAdapter recipeListAdapter;
+
+  @BindInt(R.integer.grid_column_count)
+  int gridColumnCount;
 
   @BindView(R.id.recipe_list_recycler_view)
   RecyclerView recipeListRecyclerView;
@@ -53,7 +57,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
     recipeListAdapter.setHasStableIds(true);
 
-    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+    GridLayoutManager layoutManager = new GridLayoutManager(getContext(), gridColumnCount);
     recipeListRecyclerView.setLayoutManager(layoutManager);
     recipeListRecyclerView.setHasFixedSize(true);
     recipeListRecyclerView.setAdapter(recipeListAdapter);
