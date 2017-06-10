@@ -39,7 +39,7 @@ In this project you will:
 - [ ] App conforms to common standards found in the Android Nanodegree General Project Guidelines.
 
 ### Components and Libraries
-- [ ] Application uses Master Detail Flow to display recipe steps and navigation between them.
+- [x] Application uses Master Detail Flow to display recipe steps and navigation between them.
 - [ ] Application uses Exoplayer to display videos.
 - [ ] Application properly initializes and releases video assets when appropriate.
 - [ ] Application should properly retrieve media assets from the provided network links. It should properly handle network requests.

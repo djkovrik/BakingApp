@@ -1,4 +1,4 @@
-package com.sedsoftware.bakingapp.features.recipestep.viewpagerdata;
+package com.sedsoftware.bakingapp.features.recipestep;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -61,11 +61,13 @@ public class RecipeStepSinglePageFragment extends Fragment {
     String video = getArguments().getString(EXTRA_VIDEO_URL_ID);
     videoTextView.setText(video);
 
-    // We are in portrait mode
-    if (shortDescTextView != null && descTextView != null) {
+    if (shortDescTextView != null) {
       String shortDescription = getArguments().getString(EXTRA_SHORT_DESCRIPTION_ID);
-      String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
       shortDescTextView.setText(shortDescription);
+    }
+
+    if (descTextView != null) {
+      String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
       descTextView.setText(description);
     }
   }

@@ -8,6 +8,6 @@
     android:id="@+id/recipe_step_video"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_color_green_400"/>
+    android:background="@color/material_color_indigo_400"/>
 
 </LinearLayout>

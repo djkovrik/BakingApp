@@ -1,4 +1,4 @@
-package com.sedsoftware.bakingapp.features.recipestep.viewpagerdata;
+package com.sedsoftware.bakingapp.features.recipestep;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

@@ -3,6 +3,7 @@ package com.sedsoftware.bakingapp.features.recipedetails;
 import com.sedsoftware.bakingapp.data.source.RecipeRepository;
 import com.sedsoftware.bakingapp.features.recipedetails.RecipeDetailsContract.View;
 import com.sedsoftware.bakingapp.utils.RxUtils;
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
@@ -75,5 +76,26 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
   @Override
   public void openStepDetails(int stepId) {
     detailsView.showStepDetails(stepId);
+  }
+
+  @Override
+  public void fetchStepData(int stepId) {
+
+    Disposable subscription = recipeRepository
+        .getRecipeSteps(recipeId)
+        .compose(RxUtils.applySchedulers())
+        .flatMap(Observable::fromIterable)
+        .filter(step -> step.id() == stepId)
+        .subscribe(
+            // OnNext
+            step ->
+                detailsView.refreshStepContainerFragment(
+                step.shortDescription(),
+                step.description(),
+                step.videoURL()),
+            // OnError
+            throwable -> detailsView.showErrorMessage());
+
+    disposableList.add(subscription);
   }
 }

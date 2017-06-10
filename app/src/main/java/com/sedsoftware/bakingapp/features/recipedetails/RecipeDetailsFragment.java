@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -16,6 +17,8 @@ import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Ingredient;
 import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepActivity;
+import com.sedsoftware.bakingapp.features.recipestep.RecipeStepSinglePageFragment;
+import com.sedsoftware.bakingapp.utils.FragmentUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +28,13 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   TextView recipeDetailsIngredients;
   @BindView(R.id.recipe_details_steps)
   RecyclerView recipeDetailsRecyclerView;
-  Unbinder unbinder;
-  private RecipeDetailsContract.Presenter recipeDetailsPresenter;
 
+  @BindBool(R.bool.two_pane_mode)
+  boolean twoPaneMode;
+
+  Unbinder unbinder;
+
+  private RecipeDetailsContract.Presenter recipeDetailsPresenter;
   private RecipeDetailsAdapter recipeDetailsAdapter;
   private int recipeId;
 
@@ -63,6 +70,10 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     recipeDetailsRecyclerView.setLayoutManager(layoutManager);
     recipeDetailsRecyclerView.setHasFixedSize(true);
     recipeDetailsRecyclerView.setAdapter(recipeDetailsAdapter);
+
+    if (twoPaneMode) {
+      recipeDetailsPresenter.fetchStepData(0);
+    }
 
     return view;
   }
@@ -111,6 +122,32 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @Override
   public void showStepDetails(int stepId) {
-    startActivity(RecipeStepActivity.prepareIntent(getContext(), recipeId, stepId));
+
+    if (twoPaneMode) {
+      recipeDetailsPresenter.fetchStepData(stepId);
+    } else {
+      startActivity(RecipeStepActivity.prepareIntent(getContext(), recipeId, stepId));
+    }
+  }
+
+  @Override
+  public void refreshStepContainerFragment(String shortDesc, String desc, String videoUrl) {
+
+    RecipeStepSinglePageFragment fragment =
+        (RecipeStepSinglePageFragment) getActivity().getSupportFragmentManager()
+            .findFragmentById(R.id.recipe_step_container);
+
+    if (fragment == null) {
+      fragment = RecipeStepSinglePageFragment.newInstance(shortDesc, desc, videoUrl);
+      FragmentUtils.addFragmentTo(
+          getChildFragmentManager(),
+          fragment,
+          R.id.recipe_step_container);
+    } else {
+      FragmentUtils.replaceFragmentIn(
+          getChildFragmentManager(),
+          fragment,
+          R.id.recipe_step_container);
+    }
   }
 }

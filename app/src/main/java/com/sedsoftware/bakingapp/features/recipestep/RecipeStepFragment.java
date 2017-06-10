@@ -12,7 +12,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Step;
-import com.sedsoftware.bakingapp.features.recipestep.viewpagerdata.RecipeStepPageAdapter;
 import java.util.ArrayList;
 import java.util.List;
 

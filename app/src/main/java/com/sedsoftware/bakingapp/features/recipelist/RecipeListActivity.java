@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import com.sedsoftware.bakingapp.BakingApp;
 import com.sedsoftware.bakingapp.R;
-import com.sedsoftware.bakingapp.utils.ActivityUtils;
+import com.sedsoftware.bakingapp.utils.FragmentUtils;
 import javax.inject.Inject;
 
 public class RecipeListActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
     if (recipeListFragment == null) {
       recipeListFragment = RecipeListFragment.newInstance();
-      ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), recipeListFragment,
+      FragmentUtils.addFragmentTo(getSupportFragmentManager(), recipeListFragment,
           R.id.fragmentContainer);
     }
 

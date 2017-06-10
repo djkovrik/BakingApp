@@ -17,6 +17,8 @@ public interface RecipeDetailsContract {
     void showErrorMessage();
 
     void showStepDetails(int stepId);
+
+    void refreshStepContainerFragment(String shortDesc, String desc, String videoUrl);
   }
 
   interface Presenter extends BasePresenter {
@@ -26,5 +28,7 @@ public interface RecipeDetailsContract {
     void loadStepsFromRepo();
 
     void openStepDetails(int stepId);
+
+    void fetchStepData(int stepId);
   }
 }
