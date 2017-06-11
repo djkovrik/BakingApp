@@ -1,15 +1,19 @@
 package com.sedsoftware.bakingapp.features.recipedetails;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindBool;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,6 +23,7 @@ import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepActivity;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepSinglePageFragment;
 import com.sedsoftware.bakingapp.utils.FragmentUtils;
+import com.sedsoftware.bakingapp.utils.TextViewUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +36,9 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @BindBool(R.bool.two_pane_mode)
   boolean twoPaneMode;
+
+  @BindString(R.string.recipe_details_ingredients_header)
+  String ingredientsListHeader;
 
   Unbinder unbinder;
 
@@ -71,6 +79,9 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     recipeDetailsRecyclerView.setHasFixedSize(true);
     recipeDetailsRecyclerView.setAdapter(recipeDetailsAdapter);
 
+    recipeDetailsRecyclerView
+        .addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
     if (twoPaneMode) {
       recipeDetailsPresenter.fetchStepData(0);
     }
@@ -103,11 +114,17 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @Override
   public void showIngredientsList(List<Ingredient> ingredients) {
-    recipeDetailsIngredients.setText("");
+
+    StringBuilder sb = new StringBuilder();
+    sb.append(ingredientsListHeader);
+
     for (Ingredient ingredient : ingredients) {
-      recipeDetailsIngredients.append(ingredient.ingredient());
-      recipeDetailsIngredients.append("\n");
+      sb.append("\n");
+      sb.append(ingredient.ingredient());
     }
+
+    TextViewUtils.setTextWithSpan(recipeDetailsIngredients, sb.toString(), ingredientsListHeader,
+        new StyleSpan(Typeface.BOLD));
   }
 
   @Override

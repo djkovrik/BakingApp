@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/material_list_single_line_with_avatar_normal_height">
+  android:layout_height="@dimen/material_list_single_line_without_avatar_normal_height"
+  android:orientation="horizontal"
+  tools:ignore="UseCompoundDrawables">
 
   <TextView
     android:id="@+id/list_step_description"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/material_list_text_first_position_margin_start"
+    android:layout_centerVertical="true"
+    android:textSize="@dimen/material_list_normal_primary_text_size"
+    tools:ignore="RelativeOverlap"
     tools:text="Recipe Introduction"/>
 
-</LinearLayout>
+  <ImageView
+    android:id="@+id/list_step_video_icon"
+    android:layout_width="@dimen/material_list_icon_size"
+    android:layout_height="@dimen/material_list_icon_size"
+    android:layout_marginEnd="@dimen/material_list_text_last_position_margin_end"
+    android:layout_alignParentEnd="true"
+    android:layout_centerInParent="true"
+    android:layout_centerVertical="true"
+    android:tint="@color/colorPrimaryDark"
+    app:srcCompat="@drawable/ic_play_arrow_black_24dp"
+    tools:ignore="ContentDescription"/>
+
+</RelativeLayout>

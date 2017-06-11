@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +61,8 @@ public class RecipeDetailsAdapter extends
 
     @BindView(R.id.list_step_description)
     TextView stepDescription;
+    @BindView(R.id.list_step_video_icon)
+    ImageView videoIcon;
 
     private int currentId;
 
@@ -76,6 +79,14 @@ public class RecipeDetailsAdapter extends
 
       String description = step.shortDescription();
       stepDescription.setText(String.format(Locale.US, "%d. %s", currentId, description));
+
+      String video = step.videoURL();
+
+      if (video.isEmpty()) {
+        videoIcon.setVisibility(View.INVISIBLE);
+      } else {
+        videoIcon.setVisibility(View.VISIBLE);
+      }
     }
 
     @Override
