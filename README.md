@@ -39,9 +39,9 @@ In this project you will:
 
 ### Components and Libraries
 - [x] Application uses Master Detail Flow to display recipe steps and navigation between them.
-- [ ] Application uses Exoplayer to display videos.
-- [ ] Application properly initializes and releases video assets when appropriate.
-- [ ] Application should properly retrieve media assets from the provided network links. It should properly handle network requests.
+- [x] Application uses Exoplayer to display videos.
+- [x] Application properly initializes and releases video assets when appropriate.
+- [x] Application should properly retrieve media assets from the provided network links. It should properly handle network requests.
 - [ ] Application makes use of Espresso to test aspects of the UI.
 - [x] Application sensibly utilizes a third-party library to enhance the app's features. That could be helper library to interface with Content Providers if you choose to store the recipes, a UI binding library to avoid writing findViewById a bunch of times, or something similar.
 
