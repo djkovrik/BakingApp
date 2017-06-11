@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import butterknife.BindInt;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -28,6 +30,9 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   @BindInt(R.integer.grid_column_count)
   int gridColumnCount;
+
+  @BindString(R.string.recipe_list_connection_error)
+  String connectionError;
 
   @BindView(R.id.recipe_list_recycler_view)
   RecyclerView recipeListRecyclerView;
@@ -95,7 +100,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   @Override
   public void showErrorMessage() {
-    //TODO(1) Implement this
+    Toast.makeText(getContext(), connectionError, Toast.LENGTH_SHORT).show();
   }
 
   @Override

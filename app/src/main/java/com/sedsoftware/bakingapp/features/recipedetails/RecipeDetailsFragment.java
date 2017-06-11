@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindBool;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -36,6 +37,9 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @BindBool(R.bool.two_pane_mode)
   boolean twoPaneMode;
+
+  @BindString(R.string.loading_data_error)
+  String errorMessage;
 
   @BindString(R.string.recipe_details_ingredients_header)
   String ingredientsListHeader;
@@ -134,7 +138,8 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @Override
   public void showErrorMessage() {
-    // TODO(2) Implement this (perhaps not used)
+    // User should not see this
+    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
   }
 
   @Override

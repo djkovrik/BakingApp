@@ -35,7 +35,7 @@ In this project you will:
 - [x] App should display recipes from provided network resource.
 - [x] App should allow navigation between individual recipes and recipe steps.
 - [x] App uses RecyclerView and can handle recipe steps that include videos or images.
-- [ ] App conforms to common standards found in the Android Nanodegree General Project Guidelines.
+- [x] App conforms to common standards found in the Android Nanodegree General Project Guidelines.
 
 ### Components and Libraries
 - [x] Application uses Master Detail Flow to display recipe steps and navigation between them.

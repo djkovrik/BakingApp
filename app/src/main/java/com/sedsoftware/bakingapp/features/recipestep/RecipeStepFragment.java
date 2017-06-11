@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -20,6 +22,9 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   @BindView(R.id.recipe_step_viewpager)
   ViewPager recipeStepViewPager;
   Unbinder unbinder;
+
+  @BindString(R.string.loading_data_error)
+  String errorMessage;
 
   private RecipeStepContract.Presenter recipeStepPresenter;
   private RecipeStepPageAdapter viewPagerAdapter;
@@ -87,7 +92,8 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
 
   @Override
   public void showErrorMessage() {
-    // TODO(3) Implement this
+    // User should not see this
+    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
   }
 
   @Override
