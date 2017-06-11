@@ -134,20 +134,11 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   public void refreshStepContainerFragment(String shortDesc, String desc, String videoUrl) {
 
     RecipeStepSinglePageFragment fragment =
-        (RecipeStepSinglePageFragment) getActivity().getSupportFragmentManager()
-            .findFragmentById(R.id.recipe_step_container);
+        RecipeStepSinglePageFragment.newInstance(shortDesc, desc, videoUrl);
 
-    if (fragment == null) {
-      fragment = RecipeStepSinglePageFragment.newInstance(shortDesc, desc, videoUrl);
-      FragmentUtils.addFragmentTo(
-          getChildFragmentManager(),
-          fragment,
-          R.id.recipe_step_container);
-    } else {
-      FragmentUtils.replaceFragmentIn(
-          getChildFragmentManager(),
-          fragment,
-          R.id.recipe_step_container);
-    }
+    FragmentUtils.replaceFragmentIn(
+        getChildFragmentManager(),
+        fragment,
+        R.id.recipe_step_container);
   }
 }
