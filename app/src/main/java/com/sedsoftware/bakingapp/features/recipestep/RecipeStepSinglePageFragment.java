@@ -33,13 +33,8 @@ import com.sedsoftware.bakingapp.R;
 
 public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.EventListener {
 
-  private static final String EXTRA_SHORT_DESCRIPTION_ID = "EXTRA_SHORT_DESCRIPTION_ID";
   private static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
   private static final String EXTRA_VIDEO_URL_ID = "EXTRA_VIDEO_URL_ID";
-
-  @Nullable
-  @BindView(R.id.recipe_step_short_desc)
-  TextView shortDescTextView;
 
   @Nullable
   @BindView(R.id.recipe_step_desc)
@@ -54,10 +49,9 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
 
   Unbinder unbinder;
 
-  public static RecipeStepSinglePageFragment newInstance(String shortDescription,
-      String description, String videoUrl) {
+  public static RecipeStepSinglePageFragment newInstance(String description, String videoUrl) {
+
     Bundle arguments = new Bundle();
-    arguments.putString(EXTRA_SHORT_DESCRIPTION_ID, shortDescription);
     arguments.putString(EXTRA_DESCRIPTION_ID, description);
     arguments.putString(EXTRA_VIDEO_URL_ID, videoUrl);
     RecipeStepSinglePageFragment fragment = new RecipeStepSinglePageFragment();
@@ -89,11 +83,6 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
       initializePlayer(Uri.parse(video));
     } else {
       showPlayerView(false);
-    }
-
-    if (shortDescTextView != null) {
-      String shortDescription = getArguments().getString(EXTRA_SHORT_DESCRIPTION_ID);
-      shortDescTextView.setText(shortDescription);
     }
 
     if (descTextView != null) {

@@ -18,7 +18,7 @@ public interface RecipeDetailsContract {
 
     void showStepDetails(int stepId);
 
-    void refreshStepContainerFragment(String shortDesc, String desc, String videoUrl);
+    void refreshStepContainerFragment(String desc, String videoUrl);
   }
 
   interface Presenter extends BasePresenter {

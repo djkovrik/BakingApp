@@ -90,7 +90,6 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
             // OnNext
             step ->
                 detailsView.refreshStepContainerFragment(
-                step.shortDescription(),
                 step.description(),
                 step.videoURL()),
             // OnError

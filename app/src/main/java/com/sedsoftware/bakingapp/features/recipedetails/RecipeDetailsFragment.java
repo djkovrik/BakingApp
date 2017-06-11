@@ -148,10 +148,10 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   }
 
   @Override
-  public void refreshStepContainerFragment(String shortDesc, String desc, String videoUrl) {
+  public void refreshStepContainerFragment(String desc, String videoUrl) {
 
     RecipeStepSinglePageFragment fragment =
-        RecipeStepSinglePageFragment.newInstance(shortDesc, desc, videoUrl);
+        RecipeStepSinglePageFragment.newInstance(desc, videoUrl);
 
     FragmentUtils.replaceFragmentIn(
         getChildFragmentManager(),
