@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import java.util.List;
+import java.util.Locale;
 
 class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
@@ -59,6 +61,12 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
     @BindView(R.id.list_recipe_name)
     TextView recipeName;
 
+    @BindView(R.id.list_recipe_servings)
+    TextView recipeServings;
+
+    @BindString(R.string.recipe_list_servings_text)
+    String servingsText;
+
     private int currentId;
 
     RecipeViewHolder(View itemView) {
@@ -74,6 +82,8 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
       String name = recipe.name();
       recipeName.setText(name);
+      int servings = recipe.servings();
+      recipeServings.setText(String.format(Locale.US, servingsText, servings));
     }
 
     @Override
@@ -83,6 +93,7 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
   }
 
   interface OnRecipeClickListener {
+
     void recipeClicked(int recipeId);
   }
 }

@@ -2,14 +2,56 @@
 
 <android.support.v7.widget.CardView
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/material_list_single_line_with_avatar_normal_height">
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/cards_gutter_half"
+  android:elevation="@dimen/material_card_elevation_resting"
+  tools:targetApi="lollipop">
 
-  <TextView
-    android:id="@+id/list_recipe_name"
-    android:layout_width="match_parent"
+  <LinearLayout
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:text="Nutella Pie"/>
+    android:orientation="horizontal">
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="0dp"
+      app:srcCompat="@drawable/recipe_icon"
+      tools:ignore="ContentDescription"/>
+
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+      android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/list_recipe_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/material_card_title_block_large_subtitle_margin_top"
+        android:textSize="@dimen/material_card_title_block_large_title_text_size"
+        tools:text="Nutella Pie"/>
+
+      <TextView
+        android:id="@+id/list_recipe_servings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/material_card_title_block_subtitle_text_size"
+        tools:text="Servings: X"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

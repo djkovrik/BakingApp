@@ -1,3 +1,8 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="app_name">Baking App</string>
+
+  <!-- Recipe List -->
+  <string name="recipe_list_ingredients_text">Ingredients: <xliff:g id="count">%d</xliff:g></string>
+  <string name="recipe_list_servings_text">Servings: <xliff:g id="count">%d</xliff:g></string>
+  <string name="recipe_list_connection_error">Recipe server is not available! Please try again later.</string>
 </resources>
