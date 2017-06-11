@@ -69,6 +69,7 @@ dependencies {
   compile supportLib.cardView
   compile supportLib.design
   compile supportLib.recyclerView
+  compile supportLib.constraintLayout
 
   // Rx
   compile rx.rxAndroid
