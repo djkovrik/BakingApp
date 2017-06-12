@@ -31,6 +31,7 @@
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recipe_details_steps"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/material_card_edge_margin"/>
 
 </LinearLayout>

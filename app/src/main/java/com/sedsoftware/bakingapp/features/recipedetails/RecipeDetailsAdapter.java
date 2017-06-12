@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.sedsoftware.bakingapp.R;
@@ -19,6 +21,8 @@ public class RecipeDetailsAdapter extends
 
   private List<Step> stepsList;
   OnStepClickListener recipeClickListener;
+
+  int currentPos;
 
   RecipeDetailsAdapter(List<Step> steps, OnStepClickListener listener) {
     setSteps(steps);
@@ -35,7 +39,7 @@ public class RecipeDetailsAdapter extends
 
   @Override
   public void onBindViewHolder(StepViewHolder holder, int position) {
-    holder.bindTo(stepsList.get(position));
+    holder.bindTo(stepsList.get(position), position);
   }
 
   @Override
@@ -59,10 +63,16 @@ public class RecipeDetailsAdapter extends
 
   class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    @BindView(R.id.list_step_layout)
+    RelativeLayout stepItemLayout;
     @BindView(R.id.list_step_description)
     TextView stepDescription;
     @BindView(R.id.list_step_video_icon)
     ImageView videoIcon;
+    @BindColor(R.color.colorGrayBackground)
+    int normalItemBackground;
+    @BindColor(R.color.colorPrimaryLight)
+    int currentItemBackground;
 
     private int currentId;
 
@@ -73,7 +83,7 @@ public class RecipeDetailsAdapter extends
       itemView.setOnClickListener(this);
     }
 
-    void bindTo(@NonNull Step step) {
+    void bindTo(@NonNull Step step, int bindPosition) {
 
       currentId = step.id();
 
@@ -87,11 +97,19 @@ public class RecipeDetailsAdapter extends
       } else {
         videoIcon.setVisibility(View.VISIBLE);
       }
+
+      if (currentPos == bindPosition) {
+        stepItemLayout.setBackgroundColor(currentItemBackground);
+      } else {
+        stepItemLayout.setBackgroundColor(normalItemBackground);
+      }
     }
 
     @Override
     public void onClick(View v) {
+      currentPos = currentId;
       recipeClickListener.stepClicked(currentId);
+      notifyDataSetChanged();
     }
   }
 
