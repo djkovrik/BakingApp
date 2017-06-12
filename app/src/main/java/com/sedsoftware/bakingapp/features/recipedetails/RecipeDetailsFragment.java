@@ -124,6 +124,7 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
     for (Ingredient ingredient : ingredients) {
       sb.append("\n");
+      sb.append(" \u2022 ");
       sb.append(ingredient.ingredient());
     }
 
