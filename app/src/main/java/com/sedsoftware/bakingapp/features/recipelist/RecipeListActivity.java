@@ -2,6 +2,8 @@ package com.sedsoftware.bakingapp.features.recipelist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.sedsoftware.bakingapp.BakingApp;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.utils.FragmentUtils;
@@ -31,5 +33,24 @@ public class RecipeListActivity extends AppCompatActivity {
         .recipeListPresenterModule(new RecipeListPresenterModule(recipeListFragment))
         .build()
         .inject(this);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+
+    int id = item.getItemId();
+
+    if(id == R.id.action_refresh) {
+      recipeListPresenter.loadRecipesFromRepo(true);
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 }

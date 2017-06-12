@@ -13,6 +13,8 @@ public interface RecipeListContract {
 
     void showLoadingIndicator(boolean show);
 
+    void showCompletedMessage();
+
     void showErrorMessage();
 
     void showRecipeDetails(int recipeId);
@@ -20,7 +22,7 @@ public interface RecipeListContract {
 
   interface Presenter extends BasePresenter {
 
-    void loadRecipesFromRepo();
+    void loadRecipesFromRepo(boolean forcedSync);
 
     void openRecipeDetails(int recipeId);
   }

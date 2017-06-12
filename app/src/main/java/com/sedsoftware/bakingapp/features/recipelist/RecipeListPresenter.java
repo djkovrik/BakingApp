@@ -28,7 +28,7 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
 
   @Override
   public void subscribe() {
-    loadRecipesFromRepo();
+    loadRecipesFromRepo(false);
   }
 
   @Override
@@ -37,7 +37,11 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
   }
 
   @Override
-  public void loadRecipesFromRepo() {
+  public void loadRecipesFromRepo(boolean forcedSync) {
+
+    if (forcedSync) {
+      recipeRepository.markRepoAsSynced(false);
+    }
 
     disposableList.clear();
 
@@ -50,6 +54,7 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
               recipesView.showRecipeList(recipeList);
               recipeRepository.markRepoAsSynced(true);
               recipesView.showLoadingIndicator(false);
+              if (forcedSync) recipesView.showCompletedMessage();
             },
             // OnError
             throwable -> {

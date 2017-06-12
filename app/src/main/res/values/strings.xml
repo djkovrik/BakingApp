@@ -4,10 +4,14 @@
   <!-- Recipe List -->
   <string name="recipe_list_ingredients_text">Ingredients: <xliff:g id="count">%d</xliff:g></string>
   <string name="recipe_list_servings_text">Servings: <xliff:g id="count">%d</xliff:g></string>
+  <string name="recipe_list_sync_completed">Recipe sync completed.</string>
   <string name="recipe_list_connection_error">Recipe server is not available! Please try again later.</string>
 
   <!-- Recipe Details -->
   <string name="recipe_details_ingredients_header"><b>Ingredients list:</b></string>
+
+  <!-- Main Menu -->
+  <string name="action_refresh">Refresh</string>
 
   <!-- Other -->
   <string name="loading_data_error">Requested data not found in database.</string>
