@@ -34,6 +34,7 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
   @Override
   public void subscribe() {
+    loadRecipeNameFromRepo();
     loadIngredientsFromRepo();
     loadStepsFromRepo();
   }
@@ -41,6 +42,22 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
   @Override
   public void unsubscribe() {
     disposableList.clear();
+  }
+
+  @Override
+  public void loadRecipeNameFromRepo() {
+    Disposable subscription = recipeRepository
+        .getRecipes()
+        .compose(RxUtils.applySchedulers())
+        .flatMap(Observable::fromIterable)
+        .filter(recipe -> recipe.id() == recipeId)
+        .subscribe(
+            // OnNext
+            recipe -> detailsView.showRecipeNameInActivityTitle(recipe.name()),
+            // OnError
+            throwable -> detailsView.showErrorMessage());
+
+    disposableList.add(subscription);
   }
 
   @Override
@@ -90,8 +107,8 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
             // OnNext
             step ->
                 detailsView.refreshStepContainerFragment(
-                step.description(),
-                step.videoURL()),
+                    step.description(),
+                    step.videoURL()),
             // OnError
             throwable -> detailsView.showErrorMessage());
 

@@ -143,6 +143,11 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
   }
 
   @Override
+  public void showRecipeNameInActivityTitle(String recipeName) {
+    getActivity().setTitle(recipeName);
+  }
+
+  @Override
   public void showStepDetails(int stepId) {
 
     if (twoPaneMode) {

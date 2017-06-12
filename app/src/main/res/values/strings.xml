@@ -14,5 +14,6 @@
   <string name="action_refresh">Refresh</string>
 
   <!-- Other -->
+  <string name="step_activity_title">Current step</string>
   <string name="loading_data_error">Requested data not found in database.</string>
 </resources>

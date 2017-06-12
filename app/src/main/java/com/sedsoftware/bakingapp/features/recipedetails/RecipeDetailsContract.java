@@ -16,12 +16,16 @@ public interface RecipeDetailsContract {
 
     void showErrorMessage();
 
+    void showRecipeNameInActivityTitle(String recipeName);
+
     void showStepDetails(int stepId);
 
     void refreshStepContainerFragment(String desc, String videoUrl);
   }
 
   interface Presenter extends BasePresenter {
+
+    void loadRecipeNameFromRepo();
 
     void loadIngredientsFromRepo();
 
