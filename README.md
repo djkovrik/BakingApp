@@ -1,5 +1,7 @@
 Backing App created as a part of Udacity [Android Developer Nanodegree Program](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801).
 
+![Screen](https://raw.githubusercontent.com/djkovrik/BakingApp/master/images/poster.jpg)
+
 ## Used Libraries
 * [RxJava 2](https://github.com/ReactiveX/RxJava), [RxAndroid](https://github.com/ReactiveX/RxAndroid), [RxJava2Interop](https://github.com/akarnokd/RxJava2Interop)
 * [Dagger 2](https://github.com/google/dagger)
