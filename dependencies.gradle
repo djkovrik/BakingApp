@@ -38,9 +38,14 @@ ext {
   // Testing
   junitDependency = "junit:junit:${junitVersion}"
   espressoDependency = "com.android.support.test.espresso:espresso-core:${espressoVersion}"
+  espressoContribDependency = "com.android.support.test.espresso:espresso-contrib:${espressoVersion}"
 
   espressoExcludeGroups = [
-      group1: "com.android.support", module1: "support-annotations"
+      group1: "com.android.support", module1: "support-annotations",
+      group2: "com.android.support", module2: "support-v4",
+      group3: "com.android.support", module3: "appcompat-v7",
+      group4: "com.android.support", module4: "design",
+      group5: "com.android.support", module5: "recyclerview-v7",
   ]
 
   // Libraries

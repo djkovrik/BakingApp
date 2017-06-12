@@ -40,6 +40,7 @@ dependencies {
   def junit = rootProject.ext.junitDependency
   def espresso = rootProject.ext.espressoDependency
   def espressoExclude = rootProject.ext.espressoExcludeGroups
+  def espressoContrib = rootProject.ext.espressoContribDependency
 
   // Lib definitions
   def supportLib = rootProject.ext.supportDependencies
@@ -62,6 +63,18 @@ dependencies {
 
   androidTestCompile(espresso, {
     exclude group: espressoExclude.group1, module: espressoExclude.module1
+    exclude group: espressoExclude.group2, module: espressoExclude.module2
+    exclude group: espressoExclude.group3, module: espressoExclude.module3
+    exclude group: espressoExclude.group4, module: espressoExclude.module4
+    exclude group: espressoExclude.group5, module: espressoExclude.module5
+  })
+
+  androidTestCompile(espressoContrib, {
+    exclude group: espressoExclude.group1, module: espressoExclude.module1
+    exclude group: espressoExclude.group2, module: espressoExclude.module2
+    exclude group: espressoExclude.group3, module: espressoExclude.module3
+    exclude group: espressoExclude.group4, module: espressoExclude.module4
+    exclude group: espressoExclude.group5, module: espressoExclude.module5
   })
 
   // Support Libraries
