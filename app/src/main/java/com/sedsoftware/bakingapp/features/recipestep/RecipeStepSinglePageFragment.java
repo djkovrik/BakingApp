@@ -36,7 +36,6 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
   private static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
   private static final String EXTRA_VIDEO_URL_ID = "EXTRA_VIDEO_URL_ID";
 
-  @Nullable
   @BindView(R.id.recipe_step_desc)
   TextView descTextView;
 
@@ -85,10 +84,8 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
       showPlayerView(false);
     }
 
-    if (descTextView != null) {
-      String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
-      descTextView.setText(description);
-    }
+    String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
+    descTextView.setText(description);
   }
 
   @Override

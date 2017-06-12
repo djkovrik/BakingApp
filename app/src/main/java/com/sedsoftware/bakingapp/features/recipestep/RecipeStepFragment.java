@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,12 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    stepId = getArguments().getInt(RecipeStepActivity.EXTRA_STEP_ID);
+
+    if (savedInstanceState == null) {
+      stepId = getArguments().getInt(RecipeStepActivity.EXTRA_STEP_ID);
+    } else {
+      stepId = savedInstanceState.getInt(RecipeStepActivity.EXTRA_STEP_ID);
+    }
   }
 
   @Nullable
@@ -58,8 +64,15 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
 
     viewPagerAdapter = new RecipeStepPageAdapter(getFragmentManager(), new ArrayList<>(0));
     recipeStepViewPager.setAdapter(viewPagerAdapter);
+    setUpViewPagerListener();
 
     return view;
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    outState.putInt(RecipeStepActivity.EXTRA_STEP_ID, stepId);
+    super.onSaveInstanceState(outState);
   }
 
   @Override
@@ -99,5 +112,20 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   @Override
   public void moveToCurrentStepPage() {
     recipeStepViewPager.setCurrentItem(stepId);
+  }
+
+  private void setUpViewPagerListener() {
+    recipeStepViewPager.addOnPageChangeListener(new OnPageChangeListener() {
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+      @Override
+      public void onPageSelected(int position) {
+        stepId = position;
+      }
+
+      @Override
+      public void onPageScrollStateChanged(int state) {}
+    });
   }
 }
