@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import com.sedsoftware.bakingapp.BakingApp;
 import com.sedsoftware.bakingapp.R;
@@ -30,6 +31,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_recipe_details);
 
+    setUpActionBar();
+
     int recipeId = getIntent().getIntExtra(EXTRA_RECIPE_ID, DEFAULT_RECIPE_ID);
 
     RecipeDetailsFragment recipeDetailsFragment =
@@ -47,5 +50,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         .recipeDetailsPresenterModule(new RecipeDetailsPresenterModule(recipeDetailsFragment, recipeId))
         .build()
         .inject(this);
+  }
+
+  private void setUpActionBar() {
+    ActionBar supportActionBar = getSupportActionBar();
+
+    if (supportActionBar != null) {
+      supportActionBar.setDisplayHomeAsUpEnabled(true);
+    }
   }
 }
