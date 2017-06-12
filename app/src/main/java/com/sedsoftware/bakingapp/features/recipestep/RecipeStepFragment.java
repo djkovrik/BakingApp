@@ -2,6 +2,7 @@ package com.sedsoftware.bakingapp.features.recipestep;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -22,6 +23,8 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
 
   @BindView(R.id.recipe_step_viewpager)
   ViewPager recipeStepViewPager;
+  @BindView(R.id.recipe_step_tablayout)
+  TabLayout recipeStepTabLayout;
   Unbinder unbinder;
 
   @BindString(R.string.loading_data_error)
@@ -62,9 +65,10 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
     View view = inflater.inflate(R.layout.fragment_recipe_step, container, false);
     unbinder = ButterKnife.bind(this, view);
 
-    viewPagerAdapter = new RecipeStepPageAdapter(getFragmentManager(), new ArrayList<>(0));
+    viewPagerAdapter = new RecipeStepPageAdapter(getFragmentManager(), new ArrayList<>(0), getContext());
     recipeStepViewPager.setAdapter(viewPagerAdapter);
     setUpViewPagerListener();
+    recipeStepTabLayout.setupWithViewPager(recipeStepViewPager);
 
     return view;
   }

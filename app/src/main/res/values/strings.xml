@@ -10,6 +10,9 @@
   <!-- Recipe Details -->
   <string name="recipe_details_ingredients_header"><b>Ingredients list:</b></string>
 
+  <!-- Step Details -->
+  <string name="recipe_step_tab_label">Step: <xliff:g id="count">%d</xliff:g></string>
+
   <!-- Main Menu -->
   <string name="action_refresh">Refresh</string>
 
