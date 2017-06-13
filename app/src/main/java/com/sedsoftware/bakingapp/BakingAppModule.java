@@ -17,6 +17,7 @@ public class BakingAppModule {
   }
 
   @Provides
+  @ApplicationContext
   Context provideContext() {
     return context;
   }

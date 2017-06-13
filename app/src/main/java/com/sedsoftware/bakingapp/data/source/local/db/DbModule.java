@@ -2,6 +2,7 @@ package com.sedsoftware.bakingapp.data.source.local.db;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import com.sedsoftware.bakingapp.ApplicationContext;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 import dagger.Module;
@@ -31,7 +32,7 @@ public class DbModule {
   @Singleton
   @Provides
   @NonNull
-  DbHelper provideDbHelper(Context context) {
+  DbHelper provideDbHelper(@ApplicationContext Context context) {
     return new DbHelper(context);
   }
 

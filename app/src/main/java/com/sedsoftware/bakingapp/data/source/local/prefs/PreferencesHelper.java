@@ -2,6 +2,7 @@ package com.sedsoftware.bakingapp.data.source.local.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.sedsoftware.bakingapp.ApplicationContext;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ public class PreferencesHelper {
   private final SharedPreferences sharedPreferences;
 
   @Inject
-  public PreferencesHelper(Context context) {
+  public PreferencesHelper(@ApplicationContext Context context) {
     sharedPreferences = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
   }
 
