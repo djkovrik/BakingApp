@@ -36,7 +36,10 @@ public class RecipeRepository implements RecipeDataSource {
       return recipeRemoteDataSource
           .getRecipes()
           .compose(RxUtils.applySchedulers())
-          .doOnNext(this::saveRecipes);
+          .doOnNext(recipeList -> {
+            recipeLocalDataSource.saveRecipes(recipeList);
+            preferencesHelper.saveRecipeNamesList(recipeList);
+          });
     } else {
       return recipeLocalDataSource
           .getRecipes()

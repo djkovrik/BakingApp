@@ -2,6 +2,10 @@ package com.sedsoftware.bakingapp.data.source.local.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.sedsoftware.bakingapp.data.model.Recipe;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -9,7 +13,9 @@ import javax.inject.Singleton;
 public class PreferencesHelper {
 
   private static final String PREFS_FILE_NAME = "baking_app_prefs";
-  private static final String PREFERENCE_NAME = "baking_app_synced";
+  private static final String PREFERENCE_SYNCED = "baking_app_synced";
+  private static final String PREFERENCE_RECIPES = "baking_app_recipes";
+  private static final String PREFERENCE_CHOSEN_RECIPE = "baking_app_widget_chosen_recipe";
 
   private final SharedPreferences sharedPreferences;
 
@@ -19,10 +25,32 @@ public class PreferencesHelper {
   }
 
   public void setRecipeListSynced(boolean flag) {
-    sharedPreferences.edit().putBoolean(PREFERENCE_NAME, flag).apply();
+    sharedPreferences.edit().putBoolean(PREFERENCE_SYNCED, flag).apply();
   }
 
   public boolean isRecipeListSynced() {
-    return sharedPreferences.getBoolean(PREFERENCE_NAME, false);
+    return sharedPreferences.getBoolean(PREFERENCE_SYNCED, false);
+  }
+
+  public void saveRecipeNamesList(List<Recipe> recipes) {
+
+    Set<String> values = new HashSet<>();
+
+    for (Recipe recipe : recipes) {
+      values.add(recipe.name());
+    }
+    sharedPreferences.edit().putStringSet(PREFERENCE_RECIPES, values).apply();
+  }
+
+  public Set<String> getRecipeNamesList() {
+    return sharedPreferences.getStringSet(PREFERENCE_RECIPES, new HashSet<>(0));
+  }
+
+  public void saveChosenRecipeName(String name) {
+    sharedPreferences.edit().putString(PREFERENCE_CHOSEN_RECIPE, name).apply();
+  }
+
+  public String getChosenRecipeName() {
+    return sharedPreferences.getString(PREFERENCE_CHOSEN_RECIPE, "");
   }
 }

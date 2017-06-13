@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+  android:configure="com.sedsoftware.bakingapp.features.widget.IngredientsWidgetConfigurationActivity"
+  android:initialKeyguardLayout="@layout/widget_ingredients_list"
+  android:initialLayout="@layout/widget_ingredients_list"
+  android:minHeight="@dimen/widget_default_height"
+  android:minResizeHeight="@dimen/widget_default_resize_height"
+  android:minResizeWidth="@dimen/widget_default_resize_width"
+  android:minWidth="@dimen/widget_default_width"
+  android:resizeMode="horizontal|vertical"
+  android:updatePeriodMillis="0"
+  android:widgetCategory="home_screen">
+</appwidget-provider>
