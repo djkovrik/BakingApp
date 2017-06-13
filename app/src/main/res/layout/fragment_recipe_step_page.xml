@@ -10,6 +10,7 @@
   tools:layout_editor_absoluteY="81dp">
 
   <android.support.v7.widget.CardView
+    android:id="@+id/recipe_step_desc_card"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/material_card_edge_margin"

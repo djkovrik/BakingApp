@@ -1,5 +1,6 @@
 package com.sedsoftware.bakingapp.features.recipestep;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import butterknife.BindBool;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,9 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
 
   @BindString(R.string.loading_data_error)
   String errorMessage;
+
+  @BindBool(R.bool.two_pane_mode)
+  boolean isTwoPane;
 
   private RecipeStepContract.Presenter recipeStepPresenter;
   private RecipeStepPageAdapter viewPagerAdapter;
@@ -69,6 +74,13 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
     recipeStepViewPager.setAdapter(viewPagerAdapter);
     setUpViewPagerListener();
     recipeStepTabLayout.setupWithViewPager(recipeStepViewPager);
+
+    // Hide tabs on landscape not-twoPane mode
+    int orientation = getResources().getConfiguration().orientation;
+
+    if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
+      recipeStepTabLayout.setVisibility(View.GONE);
+    }
 
     return view;
   }

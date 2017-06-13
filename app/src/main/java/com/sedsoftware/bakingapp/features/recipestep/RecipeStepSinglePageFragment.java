@@ -1,15 +1,19 @@
 package com.sedsoftware.bakingapp.features.recipestep;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -36,11 +40,17 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
   private static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
   private static final String EXTRA_VIDEO_URL_ID = "EXTRA_VIDEO_URL_ID";
 
+  @BindView(R.id.recipe_step_desc_card)
+  CardView descriptionCard;
+
   @BindView(R.id.recipe_step_desc)
   TextView descTextView;
 
   @BindView(R.id.recipe_step_video)
   SimpleExoPlayerView exoPlayerView;
+
+  @BindBool(R.bool.two_pane_mode)
+  boolean isTwoPane;
 
   private SimpleExoPlayer exoPlayer;
   private MediaSessionCompat mediaSession;
@@ -74,18 +84,30 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
+    descTextView.setText(description);
+
+    int orientation = getResources().getConfiguration().orientation;
     String video = getArguments().getString(EXTRA_VIDEO_URL_ID);
 
     if (video != null && !video.isEmpty()) {
-      showPlayerView(true);
+
+      // Init and show video view
+      setViewVisibility(exoPlayerView, true);
       initializeMediaSession();
       initializePlayer(Uri.parse(video));
-    } else {
-      showPlayerView(false);
-    }
 
-    String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
-    descTextView.setText(description);
+      if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
+        // Expand video, hide description, hide system UI
+        expandVideoView(exoPlayerView);
+        setViewVisibility(descriptionCard, false);
+        hideSystemUI();
+      }
+
+    } else {
+      // Hide video view
+      setViewVisibility(exoPlayerView, false);
+    }
   }
 
   @Override
@@ -103,12 +125,28 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
     unbinder.unbind();
   }
 
-  private void showPlayerView(boolean show) {
+  private void setViewVisibility(View view, boolean show) {
     if (show) {
-      exoPlayerView.setVisibility(View.VISIBLE);
+      view.setVisibility(View.VISIBLE);
     } else {
-      exoPlayerView.setVisibility(View.GONE);
+      view.setVisibility(View.GONE);
     }
+  }
+
+  private void expandVideoView(SimpleExoPlayerView exoPlayer) {
+    exoPlayer.getLayoutParams().height = LayoutParams.MATCH_PARENT;
+    exoPlayer.getLayoutParams().width = LayoutParams.MATCH_PARENT;
+  }
+
+  // Src: https://developer.android.com/training/system-ui/immersive.html
+  private void hideSystemUI() {
+    getActivity().getWindow().getDecorView().setSystemUiVisibility(
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_FULLSCREEN
+            | View.SYSTEM_UI_FLAG_IMMERSIVE);
   }
 
   // EXO PLAYER METHODS
