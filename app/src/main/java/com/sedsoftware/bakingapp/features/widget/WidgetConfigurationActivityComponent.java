@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 @Singleton
 @Component(modules = {BakingAppModule.class, PreferencesModule.class})
-public interface IngredientsWidgetComponent {
+public interface WidgetConfigurationActivityComponent {
 
-  void inject(IngredientsWidgetConfigurationActivity activity);
+  void inject(WidgetConfigurationActivity activity);
 }

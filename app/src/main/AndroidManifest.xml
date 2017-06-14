@@ -37,7 +37,7 @@
         android:value=".features.recipedetails.RecipeDetailsActivity"/>
     </activity>
 
-    <receiver android:name=".features.widget.IngredientsWidgetProvider">
+    <receiver android:name=".features.widget.WidgetProvider">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
@@ -47,7 +47,7 @@
         android:resource="@xml/ingredients_widget_info"/>
     </receiver>
 
-    <activity android:name=".features.widget.IngredientsWidgetConfigurationActivity">
+    <activity android:name=".features.widget.WidgetConfigurationActivity">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
       </intent-filter>

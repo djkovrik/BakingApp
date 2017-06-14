@@ -16,7 +16,7 @@ import com.sedsoftware.bakingapp.data.source.local.prefs.PreferencesHelper;
 import java.util.Set;
 import javax.inject.Inject;
 
-public class IngredientsWidgetConfigurationActivity extends AppCompatActivity {
+public class WidgetConfigurationActivity extends AppCompatActivity {
 
   @Inject
   PreferencesHelper preferencesHelper;
@@ -26,7 +26,7 @@ public class IngredientsWidgetConfigurationActivity extends AppCompatActivity {
   @BindView(R.id.radioGroup)
   RadioGroup namesRadioGroup;
 
-  public IngredientsWidgetConfigurationActivity() {
+  public WidgetConfigurationActivity() {
     super();
   }
 
@@ -38,7 +38,7 @@ public class IngredientsWidgetConfigurationActivity extends AppCompatActivity {
     setContentView(R.layout.widget_configuration_activity);
     ButterKnife.bind(this);
 
-    DaggerIngredientsWidgetComponent.builder()
+    DaggerWidgetConfigurationActivityComponent.builder()
         .bakingAppModule(new BakingAppModule(getApplicationContext()))
         .build()
         .inject(this);
