@@ -18,6 +18,8 @@
 
   <!-- Widget -->
   <string name="widget_empty_text">No data available.</string>
+  <string name="widget_config_text">Please choose a recipe from the list below:</string>
+  <string name="widget_ok_button">OK</string>
 
   <!-- Other -->
   <string name="step_activity_title">Current step</string>

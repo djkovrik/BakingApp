@@ -16,7 +16,7 @@ public class PreferencesHelper {
   private static final String PREFS_FILE_NAME = "baking_app_prefs";
   private static final String PREFERENCE_SYNCED = "baking_app_synced";
   private static final String PREFERENCE_RECIPES = "baking_app_recipes";
-  private static final String PREFERENCE_CHOSEN_RECIPE = "baking_app_widget_chosen_recipe";
+  private static final String PREFERENCE_CHOSEN_RECIPE = "baking_app_widget_chosen_recipe_";
 
   private final SharedPreferences sharedPreferences;
 
@@ -47,11 +47,15 @@ public class PreferencesHelper {
     return sharedPreferences.getStringSet(PREFERENCE_RECIPES, new HashSet<>(0));
   }
 
-  public void saveChosenRecipeName(String name) {
-    sharedPreferences.edit().putString(PREFERENCE_CHOSEN_RECIPE, name).apply();
+  public void saveChosenRecipeName(int keySuffix, String name) {
+    sharedPreferences.edit().putString(PREFERENCE_CHOSEN_RECIPE + keySuffix, name).apply();
   }
 
-  public String getChosenRecipeName() {
-    return sharedPreferences.getString(PREFERENCE_CHOSEN_RECIPE, "");
+  public void deleteRecipeName(int keySuffix) {
+    sharedPreferences.edit().remove(PREFERENCE_CHOSEN_RECIPE + keySuffix).apply();
+  }
+
+  public String getChosenRecipeName(int keySuffix) {
+    return sharedPreferences.getString(PREFERENCE_CHOSEN_RECIPE + keySuffix, "");
   }
 }
