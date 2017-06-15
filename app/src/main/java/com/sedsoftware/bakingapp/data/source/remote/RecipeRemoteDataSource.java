@@ -37,6 +37,11 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
   }
 
   @Override
+  public Observable<List<Ingredient>> getRecipeIngredients(String recipeName) {
+    throw new UnsupportedOperationException("getRecipeIngredients in RemoteDataSource is not implemented!");
+  }
+
+  @Override
   public Observable<List<Step>> getRecipeSteps(int recipeId) {
     throw new UnsupportedOperationException("getRecipeSteps in RemoteDataSource is not implemented!");
   }

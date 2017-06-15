@@ -12,6 +12,8 @@ public interface RecipeDataSource {
 
   Observable<List<Ingredient>> getRecipeIngredients(int recipeId);
 
+  Observable<List<Ingredient>> getRecipeIngredients(String recipeName);
+
   Observable<List<Step>> getRecipeSteps(int recipeId);
 
   void saveRecipes(List<Recipe> recipes);

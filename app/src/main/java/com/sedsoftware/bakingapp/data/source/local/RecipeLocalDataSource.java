@@ -12,6 +12,7 @@ import com.squareup.sqlbrite.BriteDatabase;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Observable;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -46,6 +47,15 @@ public class RecipeLocalDataSource implements RecipeDataSource {
         .mapToOne(DbUtils::ingredientsFromCursor);
 
     return RxJavaInterop.toV2Observable(listObservable);
+  }
+
+  @Override
+  public Observable<List<Ingredient>> getRecipeIngredients(String recipeName) {
+    return getRecipes()
+        .flatMap(Observable::fromIterable)
+        .filter(recipe -> Objects.equals(recipe.name(), recipeName))
+        .map(Recipe::id)
+        .flatMap(this::getRecipeIngredients);
   }
 
   @Override
