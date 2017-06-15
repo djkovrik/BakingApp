@@ -20,7 +20,7 @@ public interface RecipeDetailsContract {
 
     void showStepDetails(int stepId);
 
-    void refreshStepContainerFragment(String desc, String videoUrl);
+    void refreshStepContainerFragment(String desc, String videoUrl, String imageUrl);
   }
 
   interface Presenter extends BasePresenter {

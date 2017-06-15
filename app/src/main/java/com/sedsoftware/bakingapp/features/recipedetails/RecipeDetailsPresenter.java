@@ -102,7 +102,8 @@ class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
             step ->
                 detailsView.refreshStepContainerFragment(
                     step.description(),
-                    step.videoURL()),
+                    step.videoURL(),
+                    step.thumbnailURL()),
             // OnError
             throwable -> detailsView.showErrorMessage());
 

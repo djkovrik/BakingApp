@@ -12,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -39,13 +42,14 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
 
   private static final String EXTRA_DESCRIPTION_ID = "EXTRA_DESCRIPTION_ID";
   private static final String EXTRA_VIDEO_URL_ID = "EXTRA_VIDEO_URL_ID";
+  private static final String EXTRA_IMAGE_URL_ID = "EXTRA_IMAGE_URL_ID";
 
   @BindView(R.id.recipe_step_desc_card)
   CardView descriptionCard;
-
+  @BindView(R.id.recipe_step_image)
+  ImageView stepThumbnail;
   @BindView(R.id.recipe_step_desc)
   TextView descTextView;
-
   @BindView(R.id.recipe_step_video)
   SimpleExoPlayerView exoPlayerView;
 
@@ -58,11 +62,13 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
 
   Unbinder unbinder;
 
-  public static RecipeStepSinglePageFragment newInstance(String description, String videoUrl) {
+  public static RecipeStepSinglePageFragment newInstance(String description, String videoUrl,
+      String imageUrl) {
 
     Bundle arguments = new Bundle();
     arguments.putString(EXTRA_DESCRIPTION_ID, description);
     arguments.putString(EXTRA_VIDEO_URL_ID, videoUrl);
+    arguments.putString(EXTRA_IMAGE_URL_ID, imageUrl);
     RecipeStepSinglePageFragment fragment = new RecipeStepSinglePageFragment();
     fragment.setArguments(arguments);
     return fragment;
@@ -86,6 +92,21 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
 
     String description = getArguments().getString(EXTRA_DESCRIPTION_ID);
     descTextView.setText(description);
+
+    String imageUrl = getArguments().getString(EXTRA_IMAGE_URL_ID);
+
+    if (imageUrl != null && !imageUrl.isEmpty()) {
+      // Load and show Image
+      Glide.clear(stepThumbnail);
+      Glide.with(this)
+          .load(imageUrl)
+          .diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(stepThumbnail);
+      setViewVisibility(stepThumbnail, true);
+    } else {
+      // Hide image view
+      setViewVisibility(stepThumbnail, false);
+    }
 
     int orientation = getResources().getConfiguration().orientation;
     String video = getArguments().getString(EXTRA_VIDEO_URL_ID);

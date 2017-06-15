@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Misc -->
   <dimen name="cards_gutter_half">4dp</dimen>
+
+  <!-- Recipe Step Details -->
+  <dimen name="recipe_step_image_height">150dp</dimen>
 
   <!--Widget-->
   <dimen name="widget_default_height">180dp</dimen>

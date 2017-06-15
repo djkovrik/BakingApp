@@ -30,7 +30,8 @@ class RecipeStepPageAdapter extends FragmentPagerAdapter {
   public Fragment getItem(int position) {
     return RecipeStepSinglePageFragment.newInstance(
         steps.get(position).description(),
-        steps.get(position).videoURL()
+        steps.get(position).videoURL(),
+        steps.get(position).thumbnailURL()
     );
   }
 

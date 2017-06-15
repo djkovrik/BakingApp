@@ -24,16 +24,32 @@
     app:layout_constraintTop_toBottomOf="@+id/recipe_step_video"
     tools:targetApi="lollipop">
 
-    <TextView
-      android:id="@+id/recipe_step_desc"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="@dimen/material_card_title_block_large_padding_top"
-      android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
-      android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-      android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-      android:textSize="@dimen/material_card_supporting_text_text_size"
-      tools:text="Step description"/>
+      android:orientation="vertical"
+      tools:ignore="UseCompoundDrawables">
+
+      <ImageView
+        android:id="@+id/recipe_step_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recipe_step_image_height"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/dummy_recipe_preview"/>
+
+      <TextView
+        android:id="@+id/recipe_step_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/material_card_title_block_large_padding_top"
+        android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+        android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+        android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+        android:textSize="@dimen/material_card_supporting_text_text_size"
+        tools:text="Step description"/>
+
+    </LinearLayout>
 
   </android.support.v7.widget.CardView>
 

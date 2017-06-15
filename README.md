@@ -12,6 +12,7 @@ Backing App created as a part of Udacity [Android Developer Nanodegree Program](
 * [Gson](https://github.com/google/gson)
 * [AutoValue](https://github.com/google/auto) with [Gson extension](https://github.com/rharter/auto-value-gson)
 * [SqlBrite](https://github.com/square/sqlbrite)
+* [Glide](https://github.com/bumptech/glide)
 * [Stetho](https://github.com/facebook/stetho)
 * [LeakCanary](https://github.com/square/leakcanary)
 * [Timber](https://github.com/JakeWharton/timber)
