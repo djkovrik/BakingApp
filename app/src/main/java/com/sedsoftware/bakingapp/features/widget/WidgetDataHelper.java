@@ -24,8 +24,12 @@ public class WidgetDataHelper {
     recipeRepository.getPreferencesHelper().deleteRecipeName(widgetId);
   }
 
-  void saveChosenRecipeName(int mAppWidgetId, String name) {
-    recipeRepository.getPreferencesHelper().saveChosenRecipeName(mAppWidgetId, name);
+  void saveRecipeNameToPrefs(int appWidgetId, String name) {
+    recipeRepository.getPreferencesHelper().saveChosenRecipeName(appWidgetId, name);
+  }
+
+  String getRecipeNameFromPrefs(int appWidgetId) {
+    return recipeRepository.getPreferencesHelper().getChosenRecipeName(appWidgetId);
   }
 
   Observable<List<Ingredient>> getIngredientsList(String recipeName) {

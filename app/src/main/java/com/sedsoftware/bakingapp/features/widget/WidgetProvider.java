@@ -14,7 +14,37 @@ import timber.log.Timber;
 public class WidgetProvider extends AppWidgetProvider {
 
   @Inject
-  WidgetDataHelper dataHelper;
+  WidgetDataHelper widgetDataHelper;
+
+  @Override
+  public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    super.onUpdate(context, appWidgetManager, appWidgetIds);
+
+    Timber.d("onUpdate");
+
+    DaggerWidgetDataHelperComponent.builder()
+        .recipeRepositoryComponent(
+            ((BakingApp) context.getApplicationContext()).getRecipeRepositoryComponent())
+        .build()
+        .inject(this);
+
+    for (int appWidgetId : appWidgetIds) {
+      String recipeName = widgetDataHelper.getRecipeNameFromPrefs(appWidgetId);
+
+      widgetDataHelper
+          .getIngredientsList(recipeName)
+          .take(1)
+          .subscribe(
+              // OnNext
+              ingredients ->
+                  WidgetProvider
+                      .updateAppWidgetContent(context, appWidgetManager, appWidgetId, recipeName,
+                          ingredients),
+              // OnError
+              throwable ->
+                  Timber.d("Error: unable to populate widget data."));
+    }
+  }
 
   @Override
   public void onDeleted(Context context, int[] appWidgetIds) {
@@ -27,7 +57,7 @@ public class WidgetProvider extends AppWidgetProvider {
         .inject(this);
 
     for (int appWidgetId : appWidgetIds) {
-      dataHelper.deleteRecipeFromPrefs(appWidgetId);
+      widgetDataHelper.deleteRecipeFromPrefs(appWidgetId);
     }
   }
 

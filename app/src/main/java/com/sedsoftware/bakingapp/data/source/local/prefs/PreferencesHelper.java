@@ -48,6 +48,10 @@ public class PreferencesHelper {
     return sharedPreferences.getStringSet(PREFERENCE_RECIPES, new HashSet<>(0));
   }
 
+  public String getChosenRecipeName(int keySuffix) {
+    return sharedPreferences.getString(PREFERENCE_CHOSEN_RECIPE + keySuffix, "");
+  }
+
   public void saveChosenRecipeName(int keySuffix, String name) {
     sharedPreferences.edit().putString(PREFERENCE_CHOSEN_RECIPE + keySuffix, name).apply();
   }

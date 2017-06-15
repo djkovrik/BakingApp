@@ -29,7 +29,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
   WidgetDataHelper widgetDataHelper;
 
   private CompositeDisposable disposableList;
-  private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+  private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
   @BindView(R.id.radioGroup)
   RadioGroup namesRadioGroup;
@@ -57,11 +57,11 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
     Bundle extras = intent.getExtras();
 
     if (extras != null) {
-      mAppWidgetId = extras.getInt(
+      appWidgetId = extras.getInt(
           AppWidgetManager.EXTRA_APPWIDGET_ID,
           AppWidgetManager.INVALID_APPWIDGET_ID);
 
-      if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+      if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
         finish();
       }
     }
@@ -97,7 +97,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
     String recipeName = ((AppCompatRadioButton) namesRadioGroup
         .getChildAt(checkedItemId)).getText().toString();
 
-    widgetDataHelper.saveChosenRecipeName(mAppWidgetId, recipeName);
+    widgetDataHelper.saveRecipeNameToPrefs(appWidgetId, recipeName);
 
     Context context = getApplicationContext();
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -108,7 +108,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
             // OnNext
             ingredients ->
                 WidgetProvider
-                    .updateAppWidgetContent(context, appWidgetManager, mAppWidgetId, recipeName,
+                    .updateAppWidgetContent(context, appWidgetManager, appWidgetId, recipeName,
                         ingredients),
             // OnError
             throwable ->
@@ -117,7 +117,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
     disposableList.add(subscription);
 
     Intent resultValue = new Intent();
-    resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+    resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
     setResult(RESULT_OK, resultValue);
     finish();
   }
