@@ -49,12 +49,23 @@ public class RecipeRepository implements RecipeDataSource {
 
   @Override
   public Observable<List<Ingredient>> getRecipeIngredients(int recipeId) {
-    return recipeLocalDataSource.getRecipeIngredients(recipeId);
+    return recipeLocalDataSource
+        .getRecipeIngredients(recipeId)
+        .compose(RxUtils.applySchedulers());
+  }
+
+  @Override
+  public Observable<List<Ingredient>> getRecipeIngredients(String recipeName) {
+    return recipeLocalDataSource
+        .getRecipeIngredients(recipeName)
+        .compose(RxUtils.applySchedulers());
   }
 
   @Override
   public Observable<List<Step>> getRecipeSteps(int recipeId) {
-    return recipeLocalDataSource.getRecipeSteps(recipeId);
+    return recipeLocalDataSource
+        .getRecipeSteps(recipeId)
+        .compose(RxUtils.applySchedulers());
   }
 
   @Override
@@ -64,5 +75,9 @@ public class RecipeRepository implements RecipeDataSource {
 
   public void markRepoAsSynced(boolean synced) {
     preferencesHelper.setRecipeListSynced(synced);
+  }
+
+  public PreferencesHelper getPreferencesHelper() {
+    return preferencesHelper;
   }
 }

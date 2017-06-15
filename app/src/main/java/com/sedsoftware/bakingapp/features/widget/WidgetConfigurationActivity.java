@@ -1,34 +1,40 @@
 package com.sedsoftware.bakingapp.features.widget;
 
 import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.sedsoftware.bakingapp.BakingAppModule;
+import com.sedsoftware.bakingapp.BakingApp;
 import com.sedsoftware.bakingapp.R;
-import com.sedsoftware.bakingapp.data.source.local.prefs.PreferencesHelper;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import java.util.Set;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 public class WidgetConfigurationActivity extends AppCompatActivity {
 
   @Inject
-  PreferencesHelper preferencesHelper;
+  WidgetDataHelper widgetDataHelper;
 
   int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
+  private CompositeDisposable disposableList;
 
   @BindView(R.id.radioGroup)
   RadioGroup namesRadioGroup;
 
-  public WidgetConfigurationActivity() {
-    super();
-  }
+  @BindString(R.string.widget_config_no_data)
+  String noDataErrorMessage;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,8 +44,11 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
     setContentView(R.layout.widget_configuration_activity);
     ButterKnife.bind(this);
 
-    DaggerWidgetConfigurationActivityComponent.builder()
-        .bakingAppModule(new BakingAppModule(getApplicationContext()))
+    disposableList = new CompositeDisposable();
+
+    DaggerWidgetDataHelperComponent.builder()
+        .recipeRepositoryComponent(
+            ((BakingApp) getApplication()).getRecipeRepositoryComponent())
         .build()
         .inject(this);
 
@@ -56,8 +65,14 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
       }
     }
 
+    Set<String> names = widgetDataHelper.getRecipeNamesFromPrefs();
+
+    if (names.size() == 0) {
+      Toast.makeText(this, noDataErrorMessage, Toast.LENGTH_SHORT).show();
+      finish();
+    }
+
     // Fill the radioGroup
-    Set<String> names = preferencesHelper.getRecipeNamesList();
     int currentIndex = 0;
 
     for (String name : names) {
@@ -76,15 +91,37 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
   @OnClick(R.id.button)
   public void onOkButtonClick() {
     int checkedItemId = namesRadioGroup.getCheckedRadioButtonId();
-    String name = ((RadioButton) namesRadioGroup.getChildAt(checkedItemId)).getText().toString();
+    String recipeName = ((RadioButton) namesRadioGroup.getChildAt(checkedItemId)).getText()
+        .toString();
 
-    preferencesHelper.saveChosenRecipeName(mAppWidgetId, name);
+    widgetDataHelper.saveChosenRecipeName(mAppWidgetId, recipeName);
 
-    // TODO(1) Call Widget update from here
+    Context context = getApplicationContext();
+    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+    Disposable subscription = widgetDataHelper
+        .getIngredientsList(recipeName)
+        .subscribe(
+            // OnNext
+            ingredients ->
+                WidgetProvider
+                    .updateAppWidgetContent(context, appWidgetManager, mAppWidgetId, recipeName,
+                        ingredients),
+            // OnError
+            throwable ->
+                Timber.d("Error: unable to populate widget data."));
+
+    disposableList.add(subscription);
 
     Intent resultValue = new Intent();
     resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
     setResult(RESULT_OK, resultValue);
     finish();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    disposableList.clear();
   }
 }
