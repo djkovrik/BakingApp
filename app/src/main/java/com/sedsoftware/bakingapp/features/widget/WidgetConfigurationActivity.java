@@ -3,9 +3,12 @@ package com.sedsoftware.bakingapp.features.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -76,15 +79,16 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
     int currentIndex = 0;
 
     for (String name : names) {
-      RadioButton button = new RadioButton(this);
+      AppCompatRadioButton button = new AppCompatRadioButton(this);
       button.setText(name);
       button.setId(currentIndex++);
+      setupRadioButtonColor(button);
       namesRadioGroup.addView(button);
     }
 
     // Check the first item when loaded
     if (namesRadioGroup.getChildCount() > 0) {
-      ((RadioButton) namesRadioGroup.getChildAt(0)).setChecked(true);
+      ((AppCompatRadioButton) namesRadioGroup.getChildAt(0)).setChecked(true);
     }
   }
 
@@ -123,5 +127,21 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
   protected void onDestroy() {
     super.onDestroy();
     disposableList.clear();
+  }
+
+  private void setupRadioButtonColor(AppCompatRadioButton button) {
+
+    int color = ContextCompat.getColor(this, R.color.colorPrimary);
+
+    ColorStateList colorStateList = new ColorStateList(
+        new int[][]{
+            new int[]{-android.R.attr.state_checked},
+            new int[]{android.R.attr.state_checked}
+        },
+        new int[]{
+            color, color
+        }
+    );
+    button.setSupportButtonTintList(colorStateList);
   }
 }
