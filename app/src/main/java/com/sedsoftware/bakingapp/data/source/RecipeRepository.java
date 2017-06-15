@@ -15,9 +15,9 @@ import javax.inject.Singleton;
 @Singleton
 public class RecipeRepository implements RecipeDataSource {
 
-  final RecipeDataSource recipeRemoteDataSource;
-  final RecipeDataSource recipeLocalDataSource;
-  final PreferencesHelper preferencesHelper;
+  private final RecipeDataSource recipeRemoteDataSource;
+  private final RecipeDataSource recipeLocalDataSource;
+  private final PreferencesHelper preferencesHelper;
 
   @Inject
   public RecipeRepository(

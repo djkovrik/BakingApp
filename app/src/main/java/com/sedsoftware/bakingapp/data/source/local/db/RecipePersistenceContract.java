@@ -15,7 +15,7 @@ public class RecipePersistenceContract {
     public static final String COLUMN_IMAGE = "image";
   }
 
-  public static final String SQL_QUERY_CREATE =
+  static final String SQL_QUERY_CREATE =
       "CREATE TABLE " + RecipeEntry.TABLE_NAME + " ("
           + RecipeEntry.COLUMN_RECIPE_ID + " INTEGER PRIMARY KEY,"
           + RecipeEntry.COLUMN_NAME + " TEXT NOT NULL,"

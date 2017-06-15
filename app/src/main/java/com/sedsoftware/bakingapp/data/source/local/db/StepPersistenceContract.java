@@ -19,7 +19,7 @@ public class StepPersistenceContract {
     public static final String COLUMN_THUMB_URL = "thumb";
   }
 
-  public static final String SQL_QUERY_CREATE =
+  static final String SQL_QUERY_CREATE =
       "CREATE TABLE " + StepEntry.TABLE_NAME + " ("
           + StepEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
           + StepEntry.COLUMN_RECIPE_ID + " INTEGER NOT NULL,"

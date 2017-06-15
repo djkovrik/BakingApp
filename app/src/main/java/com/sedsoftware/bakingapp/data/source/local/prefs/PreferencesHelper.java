@@ -33,6 +33,7 @@ public class PreferencesHelper {
     return sharedPreferences.getBoolean(PREFERENCE_SYNCED, false);
   }
 
+  @SuppressWarnings("Convert2streamapi")
   public void saveRecipeNamesList(List<Recipe> recipes) {
 
     Set<String> values = new HashSet<>();
@@ -53,9 +54,5 @@ public class PreferencesHelper {
 
   public void deleteRecipeName(int keySuffix) {
     sharedPreferences.edit().remove(PREFERENCE_CHOSEN_RECIPE + keySuffix).apply();
-  }
-
-  public String getChosenRecipeName(int keySuffix) {
-    return sharedPreferences.getString(PREFERENCE_CHOSEN_RECIPE + keySuffix, "");
   }
 }

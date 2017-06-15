@@ -52,7 +52,7 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
   @BindBool(R.bool.two_pane_mode)
   boolean isTwoPane;
 
-  private SimpleExoPlayer exoPlayer;
+  SimpleExoPlayer exoPlayer;
   private MediaSessionCompat mediaSession;
   private PlaybackStateCompat.Builder stateBuilder;
 

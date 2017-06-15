@@ -38,7 +38,7 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   private RecipeStepContract.Presenter recipeStepPresenter;
   private RecipeStepPageAdapter viewPagerAdapter;
 
-  private int stepId;
+  int stepId;
 
   public RecipeStepFragment() {
   }

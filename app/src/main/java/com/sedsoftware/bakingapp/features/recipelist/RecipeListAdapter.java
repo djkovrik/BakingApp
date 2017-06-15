@@ -17,7 +17,7 @@ import java.util.Locale;
 class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
   private List<Recipe> recipeList;
-  OnRecipeClickListener recipeClickListener;
+  final OnRecipeClickListener recipeClickListener;
 
   RecipeListAdapter(List<Recipe> recipes, OnRecipeClickListener listener) {
     setRecipes(recipes);

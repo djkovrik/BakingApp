@@ -16,11 +16,11 @@ import com.sedsoftware.bakingapp.data.model.Step;
 import java.util.List;
 import java.util.Locale;
 
-public class RecipeDetailsAdapter extends
+class RecipeDetailsAdapter extends
     RecyclerView.Adapter<RecipeDetailsAdapter.StepViewHolder> {
 
   private List<Step> stepsList;
-  OnStepClickListener recipeClickListener;
+  final OnStepClickListener recipeClickListener;
 
   int currentPos;
 

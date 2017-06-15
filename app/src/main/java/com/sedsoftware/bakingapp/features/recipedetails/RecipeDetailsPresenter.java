@@ -7,16 +7,16 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
-public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
+class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
   private final RecipeRepository recipeRepository;
   private final RecipeDetailsContract.View detailsView;
-  private int recipeId;
+  private final int recipeId;
 
-  private CompositeDisposable disposableList;
+  private final CompositeDisposable disposableList;
 
   @Inject
-  public RecipeDetailsPresenter(
+  RecipeDetailsPresenter(
       RecipeRepository recipeRepository,
       View detailsView, int recipeId) {
     this.recipeRepository = recipeRepository;

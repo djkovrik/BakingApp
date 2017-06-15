@@ -5,7 +5,7 @@ import com.sedsoftware.bakingapp.BaseView;
 import com.sedsoftware.bakingapp.data.model.Step;
 import java.util.List;
 
-public class RecipeStepContract {
+class RecipeStepContract {
 
   interface View extends BaseView<Presenter> {
 

@@ -10,7 +10,7 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
 
   private final RecipeRepository recipeRepository;
   private final RecipeListContract.View recipesView;
-  private CompositeDisposable disposableList;
+  private final CompositeDisposable disposableList;
 
   @Inject
   RecipeListPresenter(RecipeRepository recipeRepository,

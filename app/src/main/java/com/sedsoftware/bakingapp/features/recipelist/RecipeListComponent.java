@@ -6,7 +6,7 @@ import dagger.Component;
 
 @FragmentScoped
 @Component(dependencies = RecipeRepositoryComponent.class, modules = RecipeListPresenterModule.class)
-public interface RecipeListComponent {
+interface RecipeListComponent {
 
   void inject(RecipeListActivity recipeListActivity);
 }

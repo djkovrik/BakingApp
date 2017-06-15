@@ -4,12 +4,12 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class RecipeStepPresenterModule {
+class RecipeStepPresenterModule {
 
   private final RecipeStepContract.View view;
   private final int recipeId;
 
-  public RecipeStepPresenterModule(RecipeStepContract.View view, int recipeId) {
+  RecipeStepPresenterModule(RecipeStepContract.View view, int recipeId) {
     this.view = view;
     this.recipeId = recipeId;
   }

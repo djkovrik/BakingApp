@@ -4,13 +4,13 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class RecipeDetailsPresenterModule {
+class RecipeDetailsPresenterModule {
 
   private final RecipeDetailsContract.View view;
 
   private final int recipeId;
 
-  public RecipeDetailsPresenterModule(RecipeDetailsContract.View view, int recipeId) {
+  RecipeDetailsPresenterModule(RecipeDetailsContract.View view, int recipeId) {
     this.view = view;
     this.recipeId = recipeId;
   }

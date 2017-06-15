@@ -17,7 +17,7 @@ public class IngredientPersistenceContract {
     public static final String COLUMN_INGREDIENT = "ingredient";
   }
 
-  public static final String SQL_QUERY_CREATE =
+  static final String SQL_QUERY_CREATE =
       "CREATE TABLE " + IngredientEntry.TABLE_NAME + " ("
           + IngredientEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
           + IngredientEntry.COLUMN_RECIPE_ID + " INTEGER NOT NULL,"

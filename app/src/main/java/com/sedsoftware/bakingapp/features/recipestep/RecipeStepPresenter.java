@@ -6,16 +6,16 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
-public class RecipeStepPresenter implements RecipeStepContract.Presenter {
+class RecipeStepPresenter implements RecipeStepContract.Presenter {
 
   private final RecipeRepository recipeRepository;
   private final RecipeStepContract.View stepView;
-  private int recipeId;
+  private final int recipeId;
 
-  private CompositeDisposable disposableList;
+  private final CompositeDisposable disposableList;
 
   @Inject
-  public RecipeStepPresenter(RecipeRepository recipeRepository,
+  RecipeStepPresenter(RecipeRepository recipeRepository,
       View stepView, int recipeId) {
     this.recipeRepository = recipeRepository;
     this.stepView = stepView;

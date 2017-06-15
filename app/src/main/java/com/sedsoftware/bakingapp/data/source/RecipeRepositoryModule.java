@@ -11,7 +11,7 @@ import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module
-public class RecipeRepositoryModule {
+class RecipeRepositoryModule {
 
   @Singleton
   @Provides

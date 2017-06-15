@@ -10,12 +10,12 @@ import com.sedsoftware.bakingapp.data.model.Step;
 import java.util.List;
 import java.util.Locale;
 
-public class RecipeStepPageAdapter extends FragmentPagerAdapter {
+class RecipeStepPageAdapter extends FragmentPagerAdapter {
 
   private List<Step> steps;
-  private String tabTitle;
+  private final String tabTitle;
 
-  public RecipeStepPageAdapter(FragmentManager fm, List<Step> steps, Context context) {
+  RecipeStepPageAdapter(FragmentManager fm, List<Step> steps, Context context) {
     super(fm);
     setSteps(steps);
     tabTitle = context.getResources().getString(R.string.recipe_step_tab_label);
