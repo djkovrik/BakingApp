@@ -45,7 +45,7 @@ public class WidgetProvider extends AppWidgetProvider {
       RemoteViews ingredientView = new RemoteViews(context.getPackageName(),
           R.layout.widget_ingredients_list_item);
 
-      ingredientView.setTextViewText(R.id.widget_ingredient_name, ingredient.ingredient());
+      ingredientView.setTextViewText(R.id.widget_ingredient_name, " - " + ingredient.ingredient());
       views.addView(R.id.widget_ingredients_container, ingredientView);
     }
 
