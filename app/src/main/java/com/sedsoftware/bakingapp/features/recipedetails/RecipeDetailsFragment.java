@@ -24,6 +24,7 @@ import com.sedsoftware.bakingapp.data.model.Step;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepActivity;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepSinglePageFragment;
 import com.sedsoftware.bakingapp.utils.FragmentUtils;
+import com.sedsoftware.bakingapp.utils.StringUtils;
 import com.sedsoftware.bakingapp.utils.TextViewUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,9 +122,13 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
     sb.append(ingredientsListHeader);
 
     for (Ingredient ingredient : ingredients) {
+
+      String name = ingredient.ingredient();
+      float quantity = ingredient.quantity();
+      String measure = ingredient.measure();
+
       sb.append("\n");
-      sb.append(" \u2022 ");
-      sb.append(ingredient.ingredient());
+      sb.append(StringUtils.formatIngdedient(getContext(), name, quantity, measure));
     }
 
     TextViewUtils.setTextWithSpan(recipeDetailsIngredients, sb.toString(), ingredientsListHeader,

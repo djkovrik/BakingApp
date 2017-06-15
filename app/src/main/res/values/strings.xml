@@ -9,6 +9,10 @@
 
   <!-- Recipe Details -->
   <string name="recipe_details_ingredients_header"><b>Ingredients list:</b></string>
+  <string name="recipe_details_ingredient_line" translatable="false">
+    <xliff:g id="bullet">\u2022</xliff:g> <xliff:g id="name">%s</xliff:g>
+    (<xliff:g id="quantity">%s</xliff:g> <xliff:g id="measure">%s</xliff:g>)
+  </string>
 
   <!-- Step Details -->
   <string name="recipe_step_tab_label">Step: <xliff:g id="count">%d</xliff:g></string>

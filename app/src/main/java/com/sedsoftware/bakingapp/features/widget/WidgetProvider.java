@@ -7,6 +7,7 @@ import android.widget.RemoteViews;
 import com.sedsoftware.bakingapp.BakingApp;
 import com.sedsoftware.bakingapp.R;
 import com.sedsoftware.bakingapp.data.model.Ingredient;
+import com.sedsoftware.bakingapp.utils.StringUtils;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -74,7 +75,11 @@ public class WidgetProvider extends AppWidgetProvider {
     for (Ingredient ingredient : ingredients) {
       RemoteViews ingredientView = new RemoteViews(context.getPackageName(),
           R.layout.widget_ingredients_list_item);
-      ingredientView.setTextViewText(R.id.widget_ingredient_name, " - " + ingredient.ingredient());
+
+      String line = StringUtils.formatIngdedient(
+          context, ingredient.ingredient(), ingredient.quantity(), ingredient.measure());
+
+      ingredientView.setTextViewText(R.id.widget_ingredient_name, line);
       views.addView(R.id.widget_ingredients_container, ingredientView);
     }
 
