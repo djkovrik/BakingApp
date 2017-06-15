@@ -111,12 +111,9 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
   }
 
   @Override
-  public void onDestroy() {
-    super.onDestroy();
+  public void onPause() {
+    super.onPause();
     releasePlayer();
-    if (mediaSession != null) {
-      mediaSession.setActive(false);
-    }
   }
 
   @Override
@@ -208,6 +205,10 @@ public class RecipeStepSinglePageFragment extends Fragment implements ExoPlayer.
       exoPlayer.stop();
       exoPlayer.release();
       exoPlayer = null;
+    }
+
+    if (mediaSession != null) {
+      mediaSession.setActive(false);
     }
   }
 
