@@ -25,23 +25,22 @@ import java.util.List;
 
 public class RecipeListFragment extends Fragment implements RecipeListContract.View {
 
-  private RecipeListContract.Presenter recipeListPresenter;
-  private RecipeListAdapter recipeListAdapter;
-
-  @BindInt(R.integer.grid_column_count)
-  int gridColumnCount;
-
-  @BindString(R.string.recipe_list_sync_completed)
-  String syncCompletedMessage;
-
-  @BindString(R.string.recipe_list_connection_error)
-  String connectionErrorMessage;
-
   @BindView(R.id.recipe_list_recycler_view)
   RecyclerView recipeListRecyclerView;
   @BindView(R.id.recipe_list_progress_bar)
   ProgressBar recipeListProgressBar;
+
+  @BindInt(R.integer.grid_column_count)
+  int gridColumnCount;
+  @BindString(R.string.recipe_list_sync_completed)
+  String syncCompletedMessage;
+  @BindString(R.string.recipe_list_connection_error)
+  String connectionErrorMessage;
+
   Unbinder unbinder;
+
+  private RecipeListContract.Presenter recipeListPresenter;
+  private RecipeListAdapter recipeListAdapter;
 
   public RecipeListFragment() {
   }

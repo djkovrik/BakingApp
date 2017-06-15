@@ -27,13 +27,13 @@ public class RecipeStepFragment extends Fragment implements RecipeStepContract.V
   ViewPager recipeStepViewPager;
   @BindView(R.id.recipe_step_tablayout)
   TabLayout recipeStepTabLayout;
-  Unbinder unbinder;
 
   @BindString(R.string.loading_data_error)
   String errorMessage;
-
   @BindBool(R.bool.two_pane_mode)
   boolean isTwoPane;
+
+  Unbinder unbinder;
 
   private RecipeStepContract.Presenter recipeStepPresenter;
   private RecipeStepPageAdapter viewPagerAdapter;

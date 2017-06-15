@@ -37,10 +37,8 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsCont
 
   @BindBool(R.bool.two_pane_mode)
   boolean twoPaneMode;
-
   @BindString(R.string.loading_data_error)
   String errorMessage;
-
   @BindString(R.string.recipe_details_ingredients_header)
   String ingredientsListHeader;
 

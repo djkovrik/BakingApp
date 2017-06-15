@@ -6,7 +6,6 @@ import io.reactivex.Observable;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 public class WidgetDataHelper {
 
@@ -22,7 +21,6 @@ public class WidgetDataHelper {
   }
 
   void deleteRecipeFromPrefs(int widgetId) {
-    Timber.d("Deleting recipe [" + widgetId + "]");
     recipeRepository.getPreferencesHelper().deleteRecipeName(widgetId);
   }
 

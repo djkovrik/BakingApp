@@ -11,7 +11,6 @@ class RecipeStepPresenter implements RecipeStepContract.Presenter {
   private final RecipeRepository recipeRepository;
   private final RecipeStepContract.View stepView;
   private final int recipeId;
-
   private final CompositeDisposable disposableList;
 
   @Inject

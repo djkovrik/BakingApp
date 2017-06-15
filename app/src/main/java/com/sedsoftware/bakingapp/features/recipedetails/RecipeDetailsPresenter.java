@@ -12,7 +12,6 @@ class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
   private final RecipeRepository recipeRepository;
   private final RecipeDetailsContract.View detailsView;
   private final int recipeId;
-
   private final CompositeDisposable disposableList;
 
   @Inject

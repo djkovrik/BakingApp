@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import butterknife.BindString;
@@ -29,9 +28,8 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
   @Inject
   WidgetDataHelper widgetDataHelper;
 
-  int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
   private CompositeDisposable disposableList;
+  private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
   @BindView(R.id.radioGroup)
   RadioGroup namesRadioGroup;
@@ -94,9 +92,10 @@ public class WidgetConfigurationActivity extends AppCompatActivity {
 
   @OnClick(R.id.button)
   public void onOkButtonClick() {
+
     int checkedItemId = namesRadioGroup.getCheckedRadioButtonId();
-    String recipeName = ((RadioButton) namesRadioGroup.getChildAt(checkedItemId)).getText()
-        .toString();
+    String recipeName = ((AppCompatRadioButton) namesRadioGroup
+        .getChildAt(checkedItemId)).getText().toString();
 
     widgetDataHelper.saveChosenRecipeName(mAppWidgetId, recipeName);
 

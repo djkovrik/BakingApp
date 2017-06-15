@@ -16,8 +16,7 @@ import com.sedsoftware.bakingapp.data.model.Step;
 import java.util.List;
 import java.util.Locale;
 
-class RecipeDetailsAdapter extends
-    RecyclerView.Adapter<RecipeDetailsAdapter.StepViewHolder> {
+class RecipeDetailsAdapter extends RecyclerView.Adapter<RecipeDetailsAdapter.StepViewHolder> {
 
   private List<Step> stepsList;
   final OnStepClickListener recipeClickListener;
