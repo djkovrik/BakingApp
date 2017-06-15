@@ -2,7 +2,6 @@ package com.sedsoftware.bakingapp.features.recipestep;
 
 import com.sedsoftware.bakingapp.data.source.RecipeRepository;
 import com.sedsoftware.bakingapp.features.recipestep.RecipeStepContract.View;
-import com.sedsoftware.bakingapp.utils.RxUtils;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
@@ -44,7 +43,6 @@ public class RecipeStepPresenter implements RecipeStepContract.Presenter {
   public void loadStepsToAdapter() {
     Disposable subscription = recipeRepository
         .getRecipeSteps(recipeId)
-        .compose(RxUtils.applySchedulers())
         .subscribe(
             // OnNext
             steps -> {

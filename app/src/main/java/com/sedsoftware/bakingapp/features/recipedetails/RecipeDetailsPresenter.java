@@ -2,7 +2,6 @@ package com.sedsoftware.bakingapp.features.recipedetails;
 
 import com.sedsoftware.bakingapp.data.source.RecipeRepository;
 import com.sedsoftware.bakingapp.features.recipedetails.RecipeDetailsContract.View;
-import com.sedsoftware.bakingapp.utils.RxUtils;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -48,7 +47,6 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
   public void loadRecipeNameFromRepo() {
     Disposable subscription = recipeRepository
         .getRecipes()
-        .compose(RxUtils.applySchedulers())
         .flatMap(Observable::fromIterable)
         .filter(recipe -> recipe.id() == recipeId)
         .subscribe(
@@ -65,7 +63,6 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
     Disposable subscription = recipeRepository
         .getRecipeIngredients(recipeId)
-        .compose(RxUtils.applySchedulers())
         .subscribe(
             // OnNext
             detailsView::showIngredientsList,
@@ -80,7 +77,6 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
     Disposable subscription = recipeRepository
         .getRecipeSteps(recipeId)
-        .compose(RxUtils.applySchedulers())
         .subscribe(
             // OnNext
             detailsView::showStepsList,
@@ -100,7 +96,6 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
     Disposable subscription = recipeRepository
         .getRecipeSteps(recipeId)
-        .compose(RxUtils.applySchedulers())
         .flatMap(Observable::fromIterable)
         .filter(step -> step.id() == stepId)
         .subscribe(
