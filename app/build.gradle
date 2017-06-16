@@ -41,6 +41,8 @@ dependencies {
   def espresso = rootProject.ext.espressoDependency
   def espressoExclude = rootProject.ext.espressoExcludeGroups
   def espressoContrib = rootProject.ext.espressoContribDependency
+  def espressoIntents = rootProject.ext.espressoIntentsDependency
+  def espressoIdlingResource = rootProject.ext.espressoIdlingResDependency
 
   // Lib definitions
   def supportLib = rootProject.ext.supportDependencies
@@ -77,6 +79,12 @@ dependencies {
     exclude group: espressoExclude.group4, module: espressoExclude.module4
     exclude group: espressoExclude.group5, module: espressoExclude.module5
   })
+
+  androidTestCompile(espressoIntents, {
+    exclude group: espressoExclude.group1, module: espressoExclude.module1
+  })
+
+  compile espressoIdlingResource
 
   // Support Libraries
   compile supportLib.appCompat

@@ -1,5 +1,6 @@
 package com.sedsoftware.bakingapp.features.recipelist;
 
+import com.sedsoftware.bakingapp.data.idlingresource.RecipesIdlingResource;
 import com.sedsoftware.bakingapp.data.source.RecipeRepository;
 import com.sedsoftware.bakingapp.features.recipelist.RecipeListContract.View;
 import io.reactivex.disposables.CompositeDisposable;
@@ -28,7 +29,7 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
 
   @Override
   public void subscribe() {
-    loadRecipesFromRepo(false);
+    loadRecipesFromRepo(false, null);
   }
 
   @Override
@@ -37,7 +38,7 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
   }
 
   @Override
-  public void loadRecipesFromRepo(boolean forcedSync) {
+  public void loadRecipesFromRepo(boolean forcedSync, RecipesIdlingResource resource) {
 
     if (forcedSync) {
       recipeRepository.markRepoAsSynced(false);
@@ -47,13 +48,17 @@ class RecipeListPresenter implements RecipeListContract.Presenter {
 
     Disposable subscription = recipeRepository
         .getRecipes()
-        .doOnSubscribe(disposable -> recipesView.showLoadingIndicator(true))
+        .doOnSubscribe(disposable -> {
+          recipesView.showLoadingIndicator(true);
+          if (resource != null) resource.setIdleState(false);
+        })
         .subscribe(
             //OnNext
             recipeList -> {
               recipesView.showRecipeList(recipeList);
               recipeRepository.markRepoAsSynced(true);
               recipesView.showLoadingIndicator(false);
+              if (resource != null) resource.setIdleState(true);
               if (forcedSync) recipesView.showCompletedMessage();
             },
             // OnError

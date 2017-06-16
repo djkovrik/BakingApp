@@ -2,6 +2,7 @@ package com.sedsoftware.bakingapp.features.recipelist;
 
 import com.sedsoftware.bakingapp.BasePresenter;
 import com.sedsoftware.bakingapp.BaseView;
+import com.sedsoftware.bakingapp.data.idlingresource.RecipesIdlingResource;
 import com.sedsoftware.bakingapp.data.model.Recipe;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface RecipeListContract {
 
   interface Presenter extends BasePresenter {
 
-    void loadRecipesFromRepo(boolean forcedSync);
+    void loadRecipesFromRepo(boolean forcedSync, RecipesIdlingResource resource);
 
     void openRecipeDetails(int recipeId);
   }

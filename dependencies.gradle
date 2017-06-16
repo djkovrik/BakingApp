@@ -40,6 +40,8 @@ ext {
   junitDependency = "junit:junit:${junitVersion}"
   espressoDependency = "com.android.support.test.espresso:espresso-core:${espressoVersion}"
   espressoContribDependency = "com.android.support.test.espresso:espresso-contrib:${espressoVersion}"
+  espressoIntentsDependency = "com.android.support.test.espresso:espresso-intents:${espressoVersion}"
+  espressoIdlingResDependency = "com.android.support.test.espresso:espresso-idling-resource:${espressoVersion}"
 
   espressoExcludeGroups = [
       group1: "com.android.support", module1: "support-annotations",
