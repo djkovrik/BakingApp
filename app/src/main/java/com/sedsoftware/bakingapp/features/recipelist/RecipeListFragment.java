@@ -1,6 +1,7 @@
 package com.sedsoftware.bakingapp.features.recipelist;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,8 @@ import java.util.List;
 
 public class RecipeListFragment extends Fragment implements RecipeListContract.View {
 
+  private static final String SAVED_SCROLL_POSITION = "SAVED_SCROLL_POSITION";
+
   @BindView(R.id.recipe_list_recycler_view)
   RecyclerView recipeListRecyclerView;
   @BindView(R.id.recipe_list_progress_bar)
@@ -41,6 +44,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
   private RecipeListContract.Presenter recipeListPresenter;
   private RecipeListAdapter recipeListAdapter;
+  private GridLayoutManager layoutManager;
 
   public RecipeListFragment() {
   }
@@ -64,12 +68,28 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
     recipeListAdapter.setHasStableIds(true);
 
-    GridLayoutManager layoutManager = new GridLayoutManager(getContext(), gridColumnCount);
+    layoutManager = new GridLayoutManager(getContext(), gridColumnCount);
     recipeListRecyclerView.setLayoutManager(layoutManager);
     recipeListRecyclerView.setHasFixedSize(true);
     recipeListRecyclerView.setAdapter(recipeListAdapter);
 
     return view;
+  }
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    if (savedInstanceState != null && savedInstanceState.containsKey(SAVED_SCROLL_POSITION)) {
+      int position = savedInstanceState.getInt(SAVED_SCROLL_POSITION);
+      new Handler().postDelayed(() -> layoutManager.scrollToPositionWithOffset(position, 0), 200);
+    }
+    super.onActivityCreated(savedInstanceState);
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    int position = layoutManager.findLastVisibleItemPosition();
+    outState.putInt(SAVED_SCROLL_POSITION, position);
+    super.onSaveInstanceState(outState);
   }
 
   @Override
